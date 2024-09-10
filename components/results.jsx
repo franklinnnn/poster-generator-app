@@ -1,49 +1,49 @@
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useContext, useState } from "react";
+import { ResultContext } from "./results-context";
+import { ResultsCard } from "./results-card";
 
-export const Results = ({
-  setShowResults,
-  setShowSelectedResults,
-  searchQuery,
-}) => {
-  const [searchResultLayout, setSearchResultLayout] = useState(false);
+export const Results = () => {
+  const { results, showResults, setShowResults } = useContext(ResultContext);
+  const [layout, setLayout] = useState(false);
   const router = useRouter();
 
-  const handleSelectResult = (i) => {
-    console.log(i);
-    setShowResults(false);
-    setShowSelectedResults(true);
-    router.push(`/album/${i}`);
-  };
+  console.log(results);
 
   return (
-    <div className="w-[60rem]">
-      <div className="flex w-full justify-between">
-        <p>Search results for {searchQuery}</p>
-        <label className="swap">
-          <input
-            type="checkbox"
-            onClick={() => setSearchResultLayout(!searchResultLayout)}
-          />
-          <div className="swap-on">GRID</div>
-          <div className="swap-off">LIST</div>
-        </label>
-      </div>
-      <div
-        className={`grid gap-1 ${
-          searchResultLayout ? "grid-cols-1" : "grid-cols-4"
-        }`}
-      >
-        {Array.from({ length: 8 }, (_, i) => (
+    <>
+      {showResults && (
+        <div className="w-[60rem]">
+          <div className="flex w-full justify-between">
+            <div>
+              Search results for{" "}
+              <span className="capitalize">{results.query}</span>
+            </div>
+            <label className="swap">
+              <input type="checkbox" onClick={() => setLayout(!layout)} />
+              <div className="swap-on">GRID</div>
+              <div className="swap-off">LIST</div>
+            </label>
+          </div>
           <div
-            onClick={() => handleSelectResult(i)}
-            className={`skeleton rounded-md ${
-              searchResultLayout ? "h-24 " : " aspect-square h-60"
-            }`}
-            key={i}
-          />
-        ))}
-      </div>
-    </div>
+            className={`grid gap-1 ${layout ? "grid-cols-1" : "grid-cols-4"}`}
+          >
+            {/* {Array.from({ length: 8 }, (_, i) => (
+              <div
+                onClick={() => handleSelectResult(i)}
+                className={`skeleton rounded-md ${
+                  searchResultLayout ? "h-24 " : " aspect-square h-60"
+                }`}
+                key={i}
+              />
+            ))} */}
+
+            {results?.items?.map((item) => (
+              <ResultsCard item={item} key={item.id} layout={layout} />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
