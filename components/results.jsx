@@ -1,32 +1,39 @@
+"use client";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
-import { ResultContext } from "./results-context";
+import { useState } from "react";
 import { ResultsCard } from "./results-card";
+import { ResultsLoader } from "./results-loader";
+import { CiBoxList, CiGrid41 } from "react-icons/ci";
 
-export const Results = () => {
-  const { results, showResults, setShowResults } = useContext(ResultContext);
+export const Results = ({ results, loading }) => {
   const [layout, setLayout] = useState(false);
   const router = useRouter();
 
-  console.log(results);
-
   return (
-    <>
-      {showResults && (
-        <div className="w-[60rem]">
-          <div className="flex w-full justify-between">
+    <div className="my-6 w-full md:w-[800px]">
+      {loading ? (
+        <ResultsLoader />
+      ) : (
+        <>
+          <div className="flex w-full justify-between mb-2">
             <div>
               Search results for{" "}
               <span className="capitalize">{results.query}</span>
             </div>
             <label className="swap">
               <input type="checkbox" onClick={() => setLayout(!layout)} />
-              <div className="swap-on">GRID</div>
-              <div className="swap-off">LIST</div>
+              <div className="swap-on">
+                <CiGrid41 size={30} />
+              </div>
+              <div className="swap-off">
+                <CiBoxList size={30} />
+              </div>
             </label>
           </div>
           <div
-            className={`grid gap-1 ${layout ? "grid-cols-1" : "grid-cols-4"}`}
+            className={`grid justify-center gap-2 ${
+              layout ? "grid-cols-1" : "md:grid-cols-3"
+            }`}
           >
             {/* {Array.from({ length: 8 }, (_, i) => (
               <div
@@ -42,8 +49,8 @@ export const Results = () => {
               <ResultsCard item={item} key={item.id} layout={layout} />
             ))}
           </div>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };

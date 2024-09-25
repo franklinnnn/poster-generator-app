@@ -13,7 +13,7 @@ module.exports = {
   },
   prefix: "",
   daisyui: {
-    themes: ["light", "dark", "nord", "luxury", "business"],
+    themes: ["light", "dark", "nord", "luxury", "business", "sunset"],
   },
   plugins: [require("daisyui")],
 };

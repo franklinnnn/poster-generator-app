@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 export const ResultContext = createContext();
 
 const ResultProvider = ({ children }) => {
+  const [searchQuery, setSearchQuery] = useState(null);
   const [results, setResults] = useState({
     query: null,
     items: null,
@@ -15,6 +16,8 @@ const ResultProvider = ({ children }) => {
   return (
     <ResultContext.Provider
       value={{
+        searchQuery,
+        setSearchQuery,
         results,
         setResults,
         showResults,

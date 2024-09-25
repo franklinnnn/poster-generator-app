@@ -6,7 +6,7 @@ import { PiFrameCorners } from "react-icons/pi";
 
 export const Footer = () => {
   return (
-    <footer className="footer bg-base-200 text-accent-content items-center p-6">
+    <footer className="footer bg-base-200 items-center p-6 mt-12">
       <aside className="grid-flow-col items-center">
         <PiFrameCorners size={35} className="rotate-90" />
         <p>Copyright © {new Date().getFullYear()} - All right reserved</p>

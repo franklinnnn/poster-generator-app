@@ -3,6 +3,7 @@ import {
   AlbumPoster,
   AlbumPosterLoader,
 } from "@/components/posters/album-poster";
+import { EditAlbumPoster } from "@/components/posters/edit-album-poster";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -40,9 +41,24 @@ const AlbumPosterPage = () => {
     fetchAlbum();
   }, []);
 
+  const handleEditPoster = () => {
+    // do something
+    console.log("editing poster");
+  };
+
   return (
     <div className="flex flex-col items-center justify-start gap-6 p-4 min-h-96">
       {loading ? <AlbumPosterLoader /> : <AlbumPoster album={album} />}
+      {loading ? <AlbumPosterLoader /> : <EditAlbumPoster album={album} />}
+      <div className="flex justify-center gap-6 w-full">
+        <button
+          className="btn btn-primary rounded-sm"
+          onClick={handleEditPoster}
+        >
+          Edit poster
+        </button>
+        <button className="btn btn-primary rounded-sm">Save poster</button>
+      </div>
     </div>
   );
 };

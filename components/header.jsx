@@ -4,7 +4,7 @@ import { PiFrameCorners } from "react-icons/pi";
 
 export const Header = () => {
   return (
-    <div className="w-full flex justify-center bg-base-200 text-accent-content p-6">
+    <div className="w-full flex justify-center bg-base-200 p-6">
       <div className=" flex justify-between items-center min-w-96">
         <Link
           href="/"
@@ -18,7 +18,7 @@ export const Header = () => {
         </Link>
         <input
           type="checkbox"
-          value="luxury"
+          value="sunset"
           className="toggle theme-controller"
         />
       </div>
