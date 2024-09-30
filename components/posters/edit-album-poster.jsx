@@ -8,13 +8,10 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
   const [qrCode, setQrCode] = useState(null);
   const [genres, setGenres] = useState(null);
   const [palette, imgRef] = useColorPalette(edit.images[0].url);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [showGenreInput, setShowGenreInput] = useState(false);
+  const [newGenre, setNewGenre] = useState("");
 
-  const [title, setTitle] = useState(null);
-  const [artist, setArtist] = useState(null);
-  const [tracks, setTracks] = useState(null);
-  const [swatches, setSwatches] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     calculateAlbumLength(edit.id, setAlbumLength, setLoading);
@@ -43,6 +40,10 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
       ...prev,
       genres: updatedGenres,
     }));
+  };
+  const handleAddGenre = () => {
+    const newGenres = [...edit.genres, ""];
+    setEdit((prev) => ({ ...prev, genres: newGenres }));
   };
 
   const handleTrackChange = (newTrack, index) => {
@@ -88,8 +89,9 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
               <div className="flex flex-row justify-between h-full">
                 <div className="flex-1">
                   <div className="flex w-[8em] md:w-[calc(8em*1.6)] h-[0.6em] md:h-[calc(0.66em*1.6)] mb-[5%]">
-                    {palette?.map((color) => (
+                    {palette?.map((color, index) => (
                       <div
+                        key={index}
                         className="w-full h-full"
                         style={{
                           backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
@@ -129,6 +131,24 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
                             />
                           ))
                           .slice(0, 2)}
+                      {edit.genres.length === 1 && !showGenreInput && (
+                        <button onClick={() => setShowGenreInput(true)}>
+                          +
+                        </button>
+                      )}
+
+                      {showGenreInput && (
+                        <div>
+                          <input
+                            type="text"
+                            placeholder="Enter new genre"
+                            value={newGenre}
+                            onChange={(e) => setNewGenre(e.target.value)}
+                            className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200"
+                          />
+                          <button onClick={handleAddGenre}>ok</button>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div>
@@ -154,7 +174,6 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
                           <div className="col-span-2 text-right">
                             {index + 1}.
                           </div>
-                          {/* <div className="col-span-4">{track.name}</div> */}
                           <input
                             type="text"
                             value={track.name}
@@ -182,9 +201,9 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
                                 type="text"
                                 value={track.name}
                                 onChange={(e) =>
-                                  handleTrackChange(index, e.target.value)
+                                  handleTrackChange(e.target.value, index)
                                 }
-                                className="col-span-4 uppercase bg-inherit"
+                                className="col-span-4 uppercase bg-slate-200"
                               />
                             </div>
                           ))}
@@ -205,14 +224,18 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
                                   1}
                                 .
                               </div>
-                              {/* <div className="col-span-5">{track.name}</div> */}
                               <input
                                 type="text"
                                 value={track.name}
                                 onChange={(e) =>
-                                  handleTrackChange(index, e.target.value)
+                                  handleTrackChange(
+                                    e.target.value,
+                                    index +
+                                      Math.ceil(edit.tracks.items.length / 2) +
+                                      1
+                                  )
                                 }
-                                className="col-span-4 uppercase bg-inherit"
+                                className="col-span-4 uppercase bg-slate-200"
                               />
                             </div>
                           ))}

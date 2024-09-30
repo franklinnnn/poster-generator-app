@@ -1,27 +1,20 @@
 "use client";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { getGenres } from "@/utils/spotify";
+
 import {
   AlbumPoster,
   AlbumPosterLoader,
 } from "@/components/posters/album-poster";
 import { EditAlbumPoster } from "@/components/posters/edit-album-poster";
-import { getGenres } from "@/utils/spotify";
-import axios from "axios";
-import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
 
 const AlbumPosterPage = () => {
   const [album, setAlbum] = useState(null);
   const [editAlbum, setEditAlbum] = useState(null);
-  const [genres, setGenres] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [edit, setEdit] = useState({
-    isEdited: false,
-    title: null,
-    artist: null,
-    tracks: null,
-    genres: null,
-    swatch: null,
-  });
+
   const [showEdit, setShowEdit] = useState(false);
   const params = useParams();
   const { id } = params;
@@ -44,6 +37,7 @@ const AlbumPosterPage = () => {
         // console.log("request parameters", id);
         setAlbum(albumResponse.data);
         setEditAlbum(albumResponse.data);
+        setEditAlbum((prev) => ({ ...prev, isEdited: false }));
 
         getGenres(
           albumResponse.data.artists[0].id,
@@ -61,8 +55,6 @@ const AlbumPosterPage = () => {
     fetchAlbum();
   }, []);
 
-  console.log(editAlbum);
-
   const handleEditPoster = () => {
     // do something
     setShowEdit(true);
@@ -70,8 +62,8 @@ const AlbumPosterPage = () => {
     console.log("editing poster");
   };
 
-  const toggleEdit = () => {
-    setShowEdit(!showEdit);
+  const handleRevertOriginal = () => {
+    setEditAlbum((prev) => ({ ...prev, isEdited: false }));
   };
 
   const handleSaveEdit = () => {
@@ -110,13 +102,22 @@ const AlbumPosterPage = () => {
       )}
       <div className="flex justify-center gap-6 w-full">
         <button
-          className="btn btn-primary rounded-sm"
+          className="btn btn-primary rounded-sm capitalize"
           onClick={showEdit ? () => setShowEdit(false) : handleEditPoster}
         >
           {showEdit ? "Cancel" : "Edit poster"}
         </button>
+        {showEdit ? null : (
+          <button
+            className="btn btn-primary rounded-sm capitalize"
+            onClick={handleRevertOriginal}
+            // disabled={!editAlbum.isEdited ? !editAlbum.isEdited : null}
+          >
+            revert original
+          </button>
+        )}
         <button
-          className="btn btn-primary rounded-sm"
+          className="btn btn-primary rounded-sm capitalize"
           onClick={showEdit ? handleSaveEdit : handleSavePoster}
         >
           {showEdit ? "Save edit" : "Save poster"}
