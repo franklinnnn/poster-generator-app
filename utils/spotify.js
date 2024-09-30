@@ -30,8 +30,7 @@ export const searchAlbums = async (query, setResults, setLoading, setError) => {
   }
 };
 
-export const getGenres = async (id, setGenres, setLoading) => {
-  console.log("input parametes", id);
+export const getGenres = async (id, setAlbum, setEditAlbum, setLoading) => {
   try {
     const tokenResponse = await axios.get("/api/spotify/token");
     const accessToken = tokenResponse.data.accessToken;
@@ -44,7 +43,8 @@ export const getGenres = async (id, setGenres, setLoading) => {
     });
 
     const genres = artist.data.genres;
-    setGenres(genres);
+    setAlbum((prev) => ({ ...prev, genres }));
+    setEditAlbum((prev) => ({ ...prev, genres }));
   } catch (error) {
     console.log("Error fetching genres:", error);
   } finally {

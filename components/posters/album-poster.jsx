@@ -32,7 +32,6 @@ export const AlbumPoster = ({ album }) => {
   useEffect(() => {
     calculateAlbumLength(album.id, setAlbumLength, setLoading);
     getQrCode(album.external_urls.spotify, setQrCode, setLoading);
-    getGenres(album?.artists[0].id, setGenres, setLoading);
   }, []);
 
   return (
@@ -43,7 +42,7 @@ export const AlbumPoster = ({ album }) => {
           <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 border border-base-300 overflow-y-clip ">
             {/* Canvas container with 2:3 aspect ratio */}
             <div className="absolute inset-0 flex flex-col p-[5%]">
-              {/* Image Container (top half) */}
+              {/* ALBUM IMAGE CONTAINER */}
               <div className="flex-1 flex justify-center items-center pb-[2%]">
                 <div className="w-full h-0 pb-[100%] relative">
                   <img
@@ -56,7 +55,7 @@ export const AlbumPoster = ({ album }) => {
                 </div>
               </div>
 
-              {/* BOTTOM HALF */}
+              {/* ALBUM DETAILS CONTAINER */}
               <div className="flex-1 pb-[1%]">
                 <div className="flex flex-row justify-between h-full">
                   <div className="flex-1">
@@ -64,6 +63,7 @@ export const AlbumPoster = ({ album }) => {
                       {palette?.map((color) => (
                         <div
                           className="w-full h-full"
+                          key={color}
                           style={{
                             backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
                           }}
@@ -79,7 +79,7 @@ export const AlbumPoster = ({ album }) => {
                       </p>
 
                       <p className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase mt-[0.63em]">
-                        {genres
+                        {album.genres
                           ?.map((genre) => genre)
                           .slice(0, 2)
                           .join(", ")}
@@ -95,7 +95,7 @@ export const AlbumPoster = ({ album }) => {
                     </div>
                   </div>
 
-                  {/* Remaining Two-Thirds: Tracklist */}
+                  {/* ALBUM TRACKLIST */}
                   <div className="flex-1 flex ">
                     {album.tracks.items.length <= 12 ? (
                       /* One Column for 10 tracks or fewer */
@@ -151,6 +151,7 @@ export const AlbumPoster = ({ album }) => {
                       </div>
                     )}
                   </div>
+                  {/* ALBUM TRACKLIST */}
                 </div>
               </div>
               <div>
@@ -161,7 +162,7 @@ export const AlbumPoster = ({ album }) => {
                   <p>{album.label}</p>
                 </div>
               </div>
-              {/* BOTTOM HALF */}
+              {/* ALBUM DETAILS */}
             </div>
           </div>
           {/* POSTER END*/}
