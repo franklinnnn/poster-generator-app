@@ -1,16 +1,19 @@
 "use client";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
-import { getGenres } from "@/utils/spotify";
+import { calculateAlbumLength, getGenres } from "@/utils/spotify";
 
 import {
   AlbumPoster,
   AlbumPosterLoader,
 } from "@/components/posters/album-poster";
 import { EditAlbumPoster } from "@/components/posters/edit-album-poster";
+import { toPng } from "html-to-image";
+import { getQrCode } from "@/utils/qrcode";
 
 const AlbumPosterPage = () => {
+  const posterRef = useRef(null);
   const [album, setAlbum] = useState(null);
   const [editAlbum, setEditAlbum] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -45,6 +48,18 @@ const AlbumPosterPage = () => {
           setEditAlbum,
           setLoading
         );
+        calculateAlbumLength(
+          albumResponse.data.id,
+          setAlbum,
+          setEditAlbum,
+          setLoading
+        );
+        getQrCode(
+          albumResponse.data.external_urls.spotify,
+          setAlbum,
+          setEditAlbum,
+          setLoading
+        );
       } catch (error) {
         console.log("Error fetching album: ", error);
       } finally {
@@ -74,7 +89,17 @@ const AlbumPosterPage = () => {
   };
 
   const handleSavePoster = () => {
-    console.log("saved poster");
+    console.log("save poster");
+    toPng(posterRef.current, { cacheBust: false })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = `album-poster-${album.artists[0].name}-${album.name}-swatch-frame.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -96,7 +121,10 @@ const AlbumPosterPage = () => {
           {loading ? (
             <AlbumPosterLoader />
           ) : (
-            <AlbumPoster album={editAlbum.isEdited ? editAlbum : album} />
+            <AlbumPoster
+              album={editAlbum.isEdited ? editAlbum : album}
+              posterRef={posterRef}
+            />
           )}
         </>
       )}

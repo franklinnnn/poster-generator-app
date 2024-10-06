@@ -52,7 +52,12 @@ export const getGenres = async (id, setAlbum, setEditAlbum, setLoading) => {
   }
 };
 
-export const calculateAlbumLength = async (id, setAlbumLength, setLoading) => {
+export const calculateAlbumLength = async (
+  id,
+  setAlbum,
+  setEditAlbum,
+  setLoading
+) => {
   try {
     const tokenResponse = await axios.get("/api/spotify/token");
     const accessToken = tokenResponse.data.accessToken;
@@ -76,9 +81,10 @@ export const calculateAlbumLength = async (id, setAlbumLength, setLoading) => {
     m < 10 ? (m = `0${m}`) : (m = `${m}`);
     h < 10 ? (h = `0${h}`) : (h = `${h}`);
 
-    const length = `${m}:${s}`;
+    const albumLength = `${m}:${s}`;
 
-    setAlbumLength(length);
+    setAlbum((prev) => ({ ...prev, albumLength }));
+    setEditAlbum((prev) => ({ ...prev, albumLength }));
   } catch (error) {
     console.log("Error calculating album length", error);
   } finally {

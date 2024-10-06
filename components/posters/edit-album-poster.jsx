@@ -13,10 +13,10 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    calculateAlbumLength(edit.id, setAlbumLength, setLoading);
-    getQrCode(edit.external_urls.spotify, setQrCode, setLoading);
-  }, []);
+  // useEffect(() => {
+  //   calculateAlbumLength(edit.id, setAlbumLength, setLoading);
+  //   getQrCode(edit.external_urls.spotify, setQrCode, setLoading);
+  // }, []);
 
   const handleArtistChange = (newArtist) => {
     setEdit((prev) => ({

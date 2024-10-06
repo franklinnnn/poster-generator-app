@@ -1,38 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { toPng } from "html-to-image";
-import { calculateAlbumLength, getGenres } from "@/utils/spotify";
-import { getQrCode } from "@/utils/qrcode";
 import useColorPalette from "@/utils/color-palette";
+import { AlbumSelectStyle } from "./albums/select-style";
 
-export const AlbumPoster = ({ album }) => {
-  const posterRef = useRef(null);
-  const [albumLength, setAlbumLength] = useState(null);
-  const [qrCode, setQrCode] = useState(null);
-  const [genres, setGenres] = useState(null);
+export const AlbumPoster = ({ album, posterRef }) => {
   const [palette, imgRef] = useColorPalette(album.images[0].url);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // console.log("fetched album", album);
-
-  const savePoster = () => {
-    console.log("save poster");
-    toPng(posterRef.current, { cacheBust: false })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "my-poster.png";
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    calculateAlbumLength(album.id, setAlbumLength, setLoading);
-    getQrCode(album.external_urls.spotify, setQrCode, setLoading);
-  }, []);
 
   return (
     <>
@@ -87,7 +57,7 @@ export const AlbumPoster = ({ album }) => {
                     </div>
                     <div>
                       <img
-                        src={qrCode ? qrCode : null}
+                        src={album.qrCodeUrl ? album.qrCodeUrl : null}
                         alt="Album QR code"
                         title="Album QR code"
                         className="w-[2.5em] md:w-[calc(2.5em*1.6)]"
@@ -157,7 +127,7 @@ export const AlbumPoster = ({ album }) => {
               <div>
                 <div className="flex flex-row justify-between text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase">
                   <p>
-                    {albumLength} / {album.release_date.slice(0, 4)}{" "}
+                    {album.albumLength} / {album.release_date.slice(0, 4)}{" "}
                   </p>
                   <p>{album.label}</p>
                 </div>
@@ -167,17 +137,7 @@ export const AlbumPoster = ({ album }) => {
           </div>
           {/* POSTER END*/}
         </div>
-        <div className="w-full md:w-1/3 pl-0 md:pl-2 flex flex-col items-center md:items-start md:justify-start">
-          <p className="m-2 text uppercase">select poster style</p>
-          <div className="flex flex-row md:flex-col">
-            {Array.from({ length: 3 }, (_, i) => (
-              <div
-                className="skeleton aspect-[2/3] w-24 md:w-40 h-auto m-2 rounded-none"
-                key={i}
-              />
-            ))}
-          </div>
-        </div>
+        <AlbumSelectStyle />
       </div>
     </>
   );
