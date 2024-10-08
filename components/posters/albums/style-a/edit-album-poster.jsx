@@ -1,9 +1,7 @@
 import useColorPalette from "@/utils/color-palette";
-import { getQrCode } from "@/utils/qrcode";
-import { calculateAlbumLength, getGenres } from "@/utils/spotify";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
-export const EditAlbumPoster = ({ edit, setEdit }) => {
+export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
   const [albumLength, setAlbumLength] = useState(null);
   const [qrCode, setQrCode] = useState(null);
   const [genres, setGenres] = useState(null);
@@ -153,7 +151,7 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
                   </div>
                   <div>
                     <img
-                      src={qrCode ? qrCode : null}
+                      src={edit.qr_code_url ? edit.qr_code_url : null}
                       alt="Album QR code"
                       title="Album QR code"
                       className="w-[2.5em] md:w-[calc(2.5em*1.6)]"
@@ -248,7 +246,7 @@ export const EditAlbumPoster = ({ edit, setEdit }) => {
             <div>
               <div className="flex flex-row justify-between text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase">
                 <p>
-                  {albumLength} / {edit.release_date.slice(0, 4)}{" "}
+                  {edit.album_length} / {edit.release_date.slice(0, 4)}{" "}
                 </p>
                 {/* <div>
                   <input

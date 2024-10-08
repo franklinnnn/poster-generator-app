@@ -81,10 +81,10 @@ export const calculateAlbumLength = async (
     m < 10 ? (m = `0${m}`) : (m = `${m}`);
     h < 10 ? (h = `0${h}`) : (h = `${h}`);
 
-    const albumLength = `${m}:${s}`;
+    const album_length = `${m}:${s}`;
 
-    setAlbum((prev) => ({ ...prev, albumLength }));
-    setEditAlbum((prev) => ({ ...prev, albumLength }));
+    setAlbum((prev) => ({ ...prev, album_length }));
+    setEditAlbum((prev) => ({ ...prev, album_length }));
   } catch (error) {
     console.log("Error calculating album length", error);
   } finally {

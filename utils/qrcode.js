@@ -7,10 +7,10 @@ export const getQrCode = async (url, setAlbum, setEditAlbum, setLoading) => {
     const response = await axios.get(requestUrl, {
       responseType: "blob",
     });
-    const qrCodeUrl = URL.createObjectURL(response.data);
+    const qr_code_url = URL.createObjectURL(response.data);
 
-    setAlbum((prev) => ({ ...prev, qrCodeUrl }));
-    setEditAlbum((prev) => ({ ...prev, qrCodeUrl }));
+    setAlbum((prev) => ({ ...prev, qr_code_url }));
+    setEditAlbum((prev) => ({ ...prev, qr_code_url }));
   } catch (error) {
     console.log("Error getting QR Code", error);
   } finally {
