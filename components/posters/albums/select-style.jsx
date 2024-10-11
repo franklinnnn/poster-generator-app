@@ -29,43 +29,33 @@ export const AlbumSelectStyle = ({ setStyle, album }) => {
   return (
     <>
       <div className="md:w-1/3 pl-0 md:pl-2 flex flex-col items-center md:items-start md:justify-start ">
-        {/* <p className="m-2 text uppercase">select poster style</p>
-        <div className="flex flex-row md:flex-col gap-4">
-          {Array.from({ length: 3 }, (_, i) => (
-            <div
-              className="skeleton aspect-[2/3] w-24 md:w-40 h-auto m-2 rounded-none"
-              key={i}
-              onClick={() => handleSelectStyle(i.toString())}
-            />
-          ))}
+        <p className="m-2 uppercase font-bold font-display">style</p>
+        <div className="flex md:flex-col gap-4">
           {styles.map((style) => (
             <div
-              className="aspect-[2/3] w-24 md:w-40 h-auto m-2 rounded-none border-2 hover:cursor-pointer"
+              className="h-60 w-24 scale-[30%] origin-top-left hover:cursor-pointer hover:scale-[31%] transition"
               key={style.id}
               onClick={() => handleStyleSelect(style.id)}
             >
-              <div className="scale-50">{styles.component}</div>
+              {style.component}
             </div>
           ))}
-        </div> */}
-
-        <p className="m-2 text uppercase">select poster style</p>
-        <div className="flex md:flex-col gap-4">
-          {/* <div className="mb-6 h-60 w-24 scale-[30%] origin-top-left">
-            <AlbumPosterStyleA album={album} />
-          </div>
-          <div className="mb-6 h-60 w-24 scale-[30%] origin-top-left">
-            <AlbumPosterStyleB album={album} />
-          </div> */}
         </div>
-        {styles.map((style) => (
+      </div>
+    </>
+  );
+};
+
+export const AlbumSelectStyleLoader = () => {
+  return (
+    <>
+      <div className="md:w-1/3 pl-0 md:pl-2 flex flex-col items-center md:items-start md:justify-start ">
+        <div className="skeleton m-2 h-6 w-40 rounded-none" />
+        {Array.from({ length: 2 }, (_, i) => (
           <div
-            className="mb-6 h-60 w-24 scale-[30%] origin-top-left hover:cursor-pointer hover:scale-[31%] transition"
-            key={style.id}
-            onClick={() => handleStyleSelect(style.id)}
-          >
-            {style.component}
-          </div>
+            className="skeleton aspect-[2/3] w-24 md:w-40 h-auto m-2 rounded-none origin-top-left"
+            key={i}
+          />
         ))}
       </div>
     </>

@@ -6,11 +6,15 @@ import { calculateAlbumLength, getGenres } from "@/utils/spotify";
 
 import { toPng } from "html-to-image";
 import { getQrCode } from "@/utils/qrcode";
-import { AlbumSelectStyle } from "@/components/posters/albums/select-style";
+import {
+  AlbumSelectStyle,
+  AlbumSelectStyleLoader,
+} from "@/components/posters/albums/select-style";
 import { AlbumPosterLoader } from "@/components/posters/albums/style-a/album-poster-loader";
 import { EditAlbumPosterStyleA } from "@/components/posters/albums/style-a/edit-album-poster";
 import { AlbumPosterStyleA } from "@/components/posters/albums/style-a/album-poster";
 import { AlbumPoster } from "@/components/posters/albums/album-poster";
+import { EditAlbumPoster } from "@/components/posters/albums/edit-album-poster";
 
 const AlbumPosterPage = () => {
   const params = useParams();
@@ -21,8 +25,6 @@ const AlbumPosterPage = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [loading, setLoading] = useState(true);
   const [style, setStyle] = useState("1");
-
-  // console.log(id);
 
   useEffect(() => {
     const fetchAlbum = async () => {
@@ -37,10 +39,12 @@ const AlbumPosterPage = () => {
           },
         });
 
-        // console.log("request parameters", id);
+        console.log(albumResponse);
+
         setAlbum(albumResponse.data);
         setEditAlbum(albumResponse.data);
-        setEditAlbum((prev) => ({ ...prev, isEdited: false }));
+        setAlbum((prev) => ({ ...prev, is_edited: false }));
+        setEditAlbum((prev) => ({ ...prev, is_edited: false }));
 
         getGenres(
           albumResponse.data.artists[0].id,
@@ -73,18 +77,17 @@ const AlbumPosterPage = () => {
   const handleEditPoster = () => {
     // do something
     setShowEdit(true);
-    setEditAlbum((prev) => ({ ...prev, isEdited: false }));
     console.log("editing poster");
   };
 
   const handleRevertOriginal = () => {
-    setEditAlbum((prev) => ({ ...prev, isEdited: false }));
+    setAlbum((prev) => ({ ...prev, is_edited: false }));
   };
 
   const handleSaveEdit = () => {
     console.log("saved edit");
     alert("poster edited");
-    setEditAlbum((prev) => ({ ...prev, isEdited: true }));
+    setAlbum((prev) => ({ ...prev, is_edited: true }));
     setShowEdit(false);
   };
 
@@ -106,6 +109,9 @@ const AlbumPosterPage = () => {
     setStyle(value);
     console.log(style);
   };
+
+  console.log("is edited", album.is_edited);
+
   return (
     <div className="flex flex-col items-center justify-start gap-6 p-4 min-h-96">
       <div className="flex flex-col md:flex-row w-full max-w-[1000px]">
@@ -116,11 +122,7 @@ const AlbumPosterPage = () => {
                 {loading ? (
                   <AlbumPosterLoader />
                 ) : (
-                  <EditAlbumPosterStyleA
-                    album={album}
-                    edit={editAlbum}
-                    setEdit={setEditAlbum}
-                  />
+                  <EditAlbumPoster edit={editAlbum} setEdit={setEditAlbum} />
                 )}
               </>
             ) : (
@@ -128,12 +130,8 @@ const AlbumPosterPage = () => {
                 {loading ? (
                   <AlbumPosterLoader />
                 ) : (
-                  // <AlbumPosterStyleA
-                  //   album={editAlbum.isEdited ? editAlbum : album}
-                  //   posterRef={posterRef}
-                  // />
                   <AlbumPoster
-                    album={editAlbum.isEdited ? editAlbum : album}
+                    album={album.is_edited ? editAlbum : album}
                     posterRef={posterRef}
                     style={style}
                   />
@@ -142,7 +140,9 @@ const AlbumPosterPage = () => {
             )}
           </div>
         </div>
-        {loading ? null : (
+        {loading ? (
+          <AlbumSelectStyleLoader />
+        ) : (
           <AlbumSelectStyle setStyle={setStyle} album={album} />
         )}
       </div>
@@ -157,7 +157,7 @@ const AlbumPosterPage = () => {
           <button
             className="btn btn-primary rounded-sm capitalize"
             onClick={handleRevertOriginal}
-            // disabled={!editAlbum.isEdited ? !editAlbum.isEdited : null}
+            // disabled={!editAlbum.is_edited ? !editAlbum.is_edited : null}
           >
             revert original
           </button>
