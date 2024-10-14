@@ -110,8 +110,6 @@ const AlbumPosterPage = () => {
     console.log(style);
   };
 
-  console.log("is edited", album.is_edited);
-
   return (
     <div className="flex flex-col items-center justify-start gap-6 p-4 min-h-96">
       <div className="flex flex-col md:flex-row w-full max-w-[1000px]">
@@ -122,7 +120,11 @@ const AlbumPosterPage = () => {
                 {loading ? (
                   <AlbumPosterLoader />
                 ) : (
-                  <EditAlbumPoster edit={editAlbum} setEdit={setEditAlbum} />
+                  <EditAlbumPoster
+                    edit={editAlbum}
+                    setEdit={setEditAlbum}
+                    style={style}
+                  />
                 )}
               </>
             ) : (

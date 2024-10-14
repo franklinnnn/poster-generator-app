@@ -18,7 +18,7 @@ export const Results = ({ results, loading }) => {
           <div className="flex w-full justify-between mb-2">
             <div>
               Search results for{" "}
-              <span className="capitalize">{results.query}</span>
+              <span className="capitalize font-bold">{results.query}</span>
             </div>
             <label className="swap">
               <input type="checkbox" onClick={() => setLayout(!layout)} />
@@ -35,16 +35,6 @@ export const Results = ({ results, loading }) => {
               layout ? "grid-cols-1" : "md:grid-cols-3"
             }`}
           >
-            {/* {Array.from({ length: 8 }, (_, i) => (
-              <div
-                onClick={() => handleSelectResult(i)}
-                className={`skeleton rounded-md ${
-                  searchResultLayout ? "h-24 " : " aspect-square h-60"
-                }`}
-                key={i}
-              />
-            ))} */}
-
             {results?.items?.map((item) => (
               <ResultsCard item={item} key={item.id} layout={layout} />
             ))}

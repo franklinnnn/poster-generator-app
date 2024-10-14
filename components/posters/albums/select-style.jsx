@@ -33,7 +33,7 @@ export const AlbumSelectStyle = ({ setStyle, album }) => {
         <div className="flex md:flex-col gap-4">
           {styles.map((style) => (
             <div
-              className="h-60 w-24 scale-[30%] origin-top-left hover:cursor-pointer hover:scale-[31%] transition"
+              className="h-60 w-24 scale-[30%] origin-top-left hover:cursor-pointer hover:translate-x-2 transition"
               key={style.id}
               onClick={() => handleStyleSelect(style.id)}
             >

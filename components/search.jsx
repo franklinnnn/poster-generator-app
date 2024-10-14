@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 
@@ -9,16 +9,22 @@ export const Search = () => {
   const [searchType, setSearchType] = useState("album");
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = () => {
-    if (searchQuery.trim() === "") return;
-    console.log("searching album", searchQuery);
+  const handleSearch = (e) => {
+    try {
+      e.preventDefault();
+      if (searchQuery.trim() === "") return;
+      console.log("searching album", searchQuery);
 
-    const queryParams = new URLSearchParams({
-      type: searchType,
-      q: searchQuery,
-    }).toString();
+      const queryParams = new URLSearchParams({
+        type: searchType,
+        q: searchQuery,
+      }).toString();
 
-    router.push(`/results?${queryParams}`);
+      router.push(`/results?${queryParams}`);
+    } catch (error) {
+      console.log(error);
+      alert(`Search error: ${error}`);
+    }
   };
 
   return (
@@ -48,23 +54,23 @@ export const Search = () => {
           Anime
         </button>
       </div>
-      <div className="min-w-72 join rounded-sm">
+
+      <form onSubmit={handleSearch} className="min-w-72 join rounded-sm">
         <input
           type="text"
           placeholder={`Search ${searchType}`}
-          // value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           disabled={loading}
           className="w-full p-2 join-item border-none outline-none focus:border-none focus:outline-none"
         />
         <button
+          type="submit"
           className="btn btn-primary join-item"
-          onClick={handleSearch}
           disabled={loading}
         >
           <CiSearch size={20} />
         </button>
-      </div>
+      </form>
     </div>
   );
 };

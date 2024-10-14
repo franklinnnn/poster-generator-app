@@ -1,8 +1,31 @@
 import useColorPalette from "@/utils/color-palette";
 import React from "react";
 
+const dynamicChunkArray = (array) => {
+  const totalTracks = array.length;
+
+  const numColumns = Math.ceil(totalTracks / 6);
+
+  let baseChunkSize = Math.floor(totalTracks / numColumns);
+
+  const remainder = totalTracks % numColumns;
+
+  const columns = [];
+  let startIndex = 0;
+
+  for (let i = 0; i < numColumns; i++) {
+    const chunkSize = baseChunkSize + (i < remainder ? 1 : 0);
+    columns.push(array.slice(startIndex, startIndex + chunkSize));
+    startIndex += chunkSize;
+  }
+
+  return columns;
+};
+
 export const AlbumPosterStyleB = ({ album }) => {
   const [palette, imgRef] = useColorPalette(album.images[0].url);
+
+  const columns = dynamicChunkArray(album.tracks.items);
 
   return (
     <div>
@@ -11,7 +34,7 @@ export const AlbumPosterStyleB = ({ album }) => {
         {/* Canvas container with 2:3 aspect ratio */}
         <div className="absolute inset-0 flex flex-col p-[5%]">
           {/* ALBUM DETAILS CONTAINER */}
-          <div className="flex-1 pb-[1%]">
+          <div className="flex-1">
             <div className="flex">
               <div>
                 <p className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase">
@@ -41,7 +64,7 @@ export const AlbumPosterStyleB = ({ album }) => {
               </div>
             </div>
 
-            <div className="flex w-full h-[0.3em] md:h-[calc(0.36em*1.6)] mb-[5%]">
+            <div className="flex w-full h-[0.3em] md:h-[calc(0.36em*1.6)] mb-[2%]">
               {palette?.map((color) => (
                 <div
                   className="w-full h-full"
@@ -53,10 +76,29 @@ export const AlbumPosterStyleB = ({ album }) => {
               ))}
             </div>
             <div className="flex flex-row justify-between h-full">
+              <div className="flex-1 flex space-x-2">
+                {/* Map through the columns and render each one */}
+                {columns.map((column, colIndex) => (
+                  <div
+                    key={colIndex}
+                    className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                  >
+                    {column.map((track, trackIndex) => (
+                      <div className="grid grid-cols-6 gap-2" key={trackIndex}>
+                        <div className="col-span-1 text-right">
+                          {/* Calculate the correct track number */}
+                          {colIndex * column.length + trackIndex + 1}.
+                        </div>
+                        <div className="col-span-5">{track.name}</div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+
               {/* ALBUM TRACKLIST */}
-              <div className="flex-1 flex">
+              {/* <div className="flex-1 flex">
                 {album.tracks.items.length <= 10 ? (
-                  /* One Column for 10 tracks or fewer */
                   <div className="flex flex-col justify-start uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)] w-full">
                     {album.tracks.items.map((track, index) => (
                       <div className="grid grid-cols-6 gap-2" key={index}>
@@ -68,7 +110,6 @@ export const AlbumPosterStyleB = ({ album }) => {
                     ))}
                   </div>
                 ) : (
-                  /* Two Columns for more than 10 tracks */
                   <div className="flex w-full space-x-2 uppercase font-bold text-[0.4em] md:text-[calc(0.4em*1.6)]">
                     <div className="flex-1 flex flex-col justify-start gap-[0.2em] md:gap-[calc(0.2em*1.6)]">
                       {album.tracks.items
@@ -104,7 +145,7 @@ export const AlbumPosterStyleB = ({ album }) => {
                     </div>
                   </div>
                 )}
-              </div>
+              </div> */}
               {/* ALBUM TRACKLIST */}
             </div>
           </div>

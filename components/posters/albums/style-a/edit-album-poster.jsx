@@ -54,7 +54,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
     <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 border border-base-300 overflow-y-clip ">
       {/* Canvas container with 2:3 aspect ratio */}
 
-      <div className="absolute left-0 top-0 px-4 py-2 bg-primary/70 uppercase font-bold z-20">
+      <div className="absolute left-0 top-0 px-4 w-full bg-primary/70 uppercase font-bold z-20">
         editing poster
       </div>
       <div className="absolute inset-0 flex flex-col p-[5%]">

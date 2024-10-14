@@ -1,10 +1,14 @@
 import React from "react";
 import { EditAlbumPosterStyleA } from "./style-a/edit-album-poster";
+import { EditAlbumPosterStyleB } from "./style-b/edit-album-poster";
 
 export const EditAlbumPoster = ({ edit, setEdit, style }) => {
+  console.log("edit album", style);
   return (
     <>
-      <EditAlbumPosterStyleA edit={edit} setEdit={setEdit} />
+      {style === "1" && <EditAlbumPosterStyleA edit={edit} setEdit={setEdit} />}
+
+      {style === "2" && <EditAlbumPosterStyleB edit={edit} setEdit={setEdit} />}
     </>
   );
 };
