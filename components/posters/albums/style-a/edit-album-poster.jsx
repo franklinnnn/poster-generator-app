@@ -32,7 +32,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
     }));
   };
   const handleAddGenre = () => {
-    const newGenres = [...edit.genres, ""];
+    const newGenres = [...edit.genres, newGenre];
     setEdit((prev) => ({ ...prev, genres: newGenres }));
   };
 
@@ -118,7 +118,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                         />
                       ))
                       .slice(0, 2)}
-                  {edit.genres.length === 1 && !showGenreInput && (
+                  {edit.genres.length <= 1 && !showGenreInput && (
                     <button onClick={() => setShowGenreInput(true)}>+</button>
                   )}
 

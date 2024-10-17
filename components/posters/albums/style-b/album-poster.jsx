@@ -27,6 +27,8 @@ export const AlbumPosterStyleB = ({ album }) => {
 
   const columns = dynamicChunkArray(album.tracks.items);
 
+  console.log(palette);
+
   return (
     <div>
       {/* POSTER START*/}
@@ -53,7 +55,14 @@ export const AlbumPosterStyleB = ({ album }) => {
                 </div>
               </div>
               <div className="flex flex-col flex-1 items-end w-full">
-                <div className="flex w-full items-end justify-end">
+                <div className="flex w-full items-end justify-end gap-2 ">
+                  <div className="flex flex-col items-end justify-between text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase h-full">
+                    <p>{album.album_length}</p>
+                    <p>{album.release_date.slice(0, 4)}</p>
+                    <p className="text-[0.45em] md:text-[calc(0.45em*1.6)]">
+                      {album.label}
+                    </p>
+                  </div>
                   <img
                     src={album.qr_code_url ? album.qr_code_url : null}
                     alt="Album QR code"
@@ -163,14 +172,20 @@ export const AlbumPosterStyleB = ({ album }) => {
               />
             </div>
           </div>
-          <div>
+          <div
+            className="w-1/4 h-[0.3em]"
+            // style={{
+            //   backgroundColor: `rgb(${palette[2].color[0]},${palette[2].color[1]},${palette[2].color[2]})`,
+            // }}
+          />
+          {/* <div>
             <div className="flex flex-row justify-between text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase">
               <p>
                 {album.album_length} / {album.release_date.slice(0, 4)}{" "}
               </p>
               <p>{album.label}</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* POSTER END*/}

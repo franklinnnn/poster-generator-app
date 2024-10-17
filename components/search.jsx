@@ -29,7 +29,7 @@ export const Search = () => {
 
   return (
     <div className="flex flex-col items-center gap-4 my-4">
-      <div className="flex gap-4">
+      {/* <div className="flex gap-4">
         <button
           className="btn btn-primary rounded-sm"
           value="album"
@@ -53,7 +53,7 @@ export const Search = () => {
         >
           Anime
         </button>
-      </div>
+      </div> */}
 
       <form onSubmit={handleSearch} className="min-w-72 join rounded-sm">
         <input
