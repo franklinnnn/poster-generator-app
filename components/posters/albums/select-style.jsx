@@ -7,6 +7,7 @@ import {
   AlbumPosterStyleB,
   AlbumPosterStyleBThumb,
 } from "./style-b/album-poster";
+import { AlbumPosterStyleC } from "./style-c/album-poster";
 
 export const AlbumSelectStyle = ({ setStyle, album }) => {
   const styles = [
@@ -19,6 +20,11 @@ export const AlbumSelectStyle = ({ setStyle, album }) => {
       name: "Style B",
       id: "2",
       component: <AlbumPosterStyleB album={album} />,
+    },
+    {
+      name: "Style C",
+      id: "3",
+      component: <AlbumPosterStyleC album={album} />,
     },
   ];
 

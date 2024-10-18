@@ -22,7 +22,7 @@ const dynamicChunkArray = (array) => {
   return columns;
 };
 
-export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
+export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
   const [palette, imgRef] = useColorPalette(edit.images[0].url);
   const [showGenreInput, setShowGenreInput] = useState(false);
   const [newGenre, setNewGenre] = useState("");
