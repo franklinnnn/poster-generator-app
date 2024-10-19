@@ -11,8 +11,6 @@ import {
   AlbumSelectStyleLoader,
 } from "@/components/posters/albums/select-style";
 import { AlbumPosterLoader } from "@/components/posters/albums/style-a/album-poster-loader";
-import { EditAlbumPosterStyleA } from "@/components/posters/albums/style-a/edit-album-poster";
-import { AlbumPosterStyleA } from "@/components/posters/albums/style-a/album-poster";
 import { AlbumPoster } from "@/components/posters/albums/album-poster";
 import { EditAlbumPoster } from "@/components/posters/albums/edit-album-poster";
 
@@ -145,7 +143,13 @@ const AlbumPosterPage = () => {
         {loading ? (
           <AlbumSelectStyleLoader />
         ) : (
-          <AlbumSelectStyle setStyle={setStyle} album={album} />
+          <>
+            {showEdit ? (
+              <div>editor stuff</div>
+            ) : (
+              <AlbumSelectStyle setStyle={setStyle} album={album} />
+            )}
+          </>
         )}
       </div>
       <div className="flex justify-center gap-6 w-full">

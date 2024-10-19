@@ -91,28 +91,28 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
           editing poster
         </div>
         {/* Canvas container with 2:3 aspect ratio */}
-        <div className="absolute inset-0 flex flex-col p-[5%]">
-          {/* ALBUM DETAILS CONTAINER */}
+        <div className="absolute inset-0 flex flex-col justify-evenly p-[5%]">
+          {/* DETAILS */}
           <div className="flex-1">
             <div className="flex">
-              <div>
+              <div className="w-1/2">
                 <div className="flex flex-col">
                   <input
                     type="text"
                     name="artist"
                     value={edit.artists[0].name}
                     onChange={(e) => handleArtistChange(e.target.value)}
-                    className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-[6em] md:max-w-[calc(6em*1.6)] mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
+                    className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-full mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
                   />
                   <input
                     type="text"
                     name="title"
                     value={edit.name}
                     onChange={(e) => handleTitleChange(e.target.value)}
-                    className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-w-[6em] md:max-w-[calc(6em*1.6)] bg-slate-200"
+                    className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-full mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
                   />
                 </div>
-                <div>
+                <div className="flex gap-[0.2em]">
                   {edit &&
                     edit.genres
                       ?.map((genre, index) => (
@@ -175,38 +175,39 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
                 />
               ))}
             </div>
-            <div className="flex flex-row justify-between h-full">
-              <div className="flex-1 flex space-x-2">
-                {/* Map through the columns and render each one */}
-                {columns.map((column, colIndex) => (
-                  <div
-                    key={colIndex}
-                    className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
-                  >
-                    {column.map((track, trackIndex) => (
-                      <div className="grid grid-cols-6 gap-2" key={trackIndex}>
-                        <div className="col-span-1 text-right">
-                          {/* Calculate the correct track number */}
-                          {colIndex * column.length + trackIndex + 1}.
-                        </div>
-                        <input
-                          type="text"
-                          value={track.name}
-                          onChange={(e) =>
-                            handleTrackChange(e.target.value, trackIndex)
-                          }
-                          className="col-span-4 uppercase bg-slate-200"
-                        />
+          </div>
+
+          {/* TRACKLIST */}
+          <div className="flex flex-row justify-between h-full">
+            <div className="flex-1 flex space-x-2">
+              {/* Map through the columns and render each one */}
+              {columns.map((column, colIndex) => (
+                <div
+                  key={colIndex}
+                  className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                >
+                  {column.map((track, trackIndex) => (
+                    <div className="grid grid-cols-6 gap-2" key={trackIndex}>
+                      <div className="col-span-1 text-right">
+                        {/* Calculate the correct track number */}
+                        {colIndex * column.length + trackIndex + 1}.
                       </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
+                      <input
+                        type="text"
+                        value={track.name}
+                        onChange={(e) =>
+                          handleTrackChange(e.target.value, trackIndex)
+                        }
+                        className="col-span-4 uppercase bg-slate-200"
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
-          {/* ALBUM DETAILS */}
 
-          {/* ALBUM IMAGE CONTAINER */}
+          {/* ART */}
           <div className="flex-1 flex justify-center items-center pb-[2%]">
             <div className="w-full h-0 pb-[100%] relative">
               <img
@@ -218,17 +219,21 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
               />
             </div>
           </div>
-          {palette
-            .map((color) => (
-              <div
-                className="w-1/4 h-[0.3em] md:h-[calc(0.36em*1.6)] mt-[2%]"
-                key={color}
-                style={{
-                  backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
-                }}
-              />
-            ))
-            .slice(2, 3)}
+
+          {/* ACCENT BAR */}
+          <div>
+            {palette
+              .map((color) => (
+                <div
+                  className="w-1/4 h-[0.3em] md:h-[calc(0.36em*1.6)] mt-[2%]"
+                  key={color}
+                  style={{
+                    backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
+                  }}
+                />
+              ))
+              .slice(2, 3)}
+          </div>
         </div>
       </div>
       {/* POSTER END*/}

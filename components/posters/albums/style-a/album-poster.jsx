@@ -9,8 +9,8 @@ export const AlbumPosterStyleA = ({ album, posterRef }) => {
       {/* POSTER START*/}
       <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 border border-base-300 overflow-y-clip ">
         {/* Canvas container with 2:3 aspect ratio */}
-        <div className="absolute inset-0 flex flex-col p-[5%]">
-          {/* ALBUM IMAGE CONTAINER */}
+        <div className="absolute inset-0 flex flex-col justify-evenly p-[5%]">
+          {/* ART */}
           <div className="flex-1 flex justify-center items-center pb-[2%]">
             <div className="w-full h-0 pb-[100%] relative">
               <img
@@ -23,7 +23,7 @@ export const AlbumPosterStyleA = ({ album, posterRef }) => {
             </div>
           </div>
 
-          {/* ALBUM DETAILS CONTAINER */}
+          {/* DETAILS */}
           <div className="flex-1 pb-[1%]">
             <div className="flex flex-row justify-between h-full">
               <div className="flex-1">
@@ -63,8 +63,8 @@ export const AlbumPosterStyleA = ({ album, posterRef }) => {
                 </div>
               </div>
 
-              {/* ALBUM TRACKLIST */}
-              <div className="flex-1 flex ">
+              {/* TRACKLIST */}
+              <div className="flex-1">
                 {album.tracks.items.length <= 12 ? (
                   /* One Column for 10 tracks or fewer */
                   <div className="flex flex-col justify-start uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)] w-full">
@@ -115,9 +115,10 @@ export const AlbumPosterStyleA = ({ album, posterRef }) => {
                   </div>
                 )}
               </div>
-              {/* ALBUM TRACKLIST */}
             </div>
           </div>
+
+          {/* LENGTH, DATE, LABEL */}
           <div>
             <div className="flex flex-row justify-between text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase">
               <p>

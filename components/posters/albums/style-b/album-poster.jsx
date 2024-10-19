@@ -32,8 +32,8 @@ export const AlbumPosterStyleB = ({ album }) => {
       {/* POSTER START*/}
       <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 border border-base-300 overflow-y-clip ">
         {/* Canvas container with 2:3 aspect ratio */}
-        <div className="absolute inset-0 flex flex-col p-[5%]">
-          {/* ALBUM DETAILS CONTAINER */}
+        <div className="absolute inset-0 flex flex-col justify-evenly p-[5%]">
+          {/* DETAILS */}
           <div className="flex-1">
             <div className="flex">
               <div>
@@ -82,31 +82,32 @@ export const AlbumPosterStyleB = ({ album }) => {
                 />
               ))}
             </div>
-            <div className="flex flex-row justify-between h-full">
-              <div className="flex-1 flex space-x-2">
-                {/* Map through the columns and render each one */}
-                {columns.map((column, colIndex) => (
-                  <div
-                    key={colIndex}
-                    className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
-                  >
-                    {column.map((track, trackIndex) => (
-                      <div className="grid grid-cols-6 gap-2" key={trackIndex}>
-                        <div className="col-span-1 text-right">
-                          {/* Calculate the correct track number */}
-                          {colIndex * column.length + trackIndex + 1}.
-                        </div>
-                        <div className="col-span-5">{track.name}</div>
+          </div>
+
+          {/* TRACKLIST */}
+          <div className="flex flex-row justify-between h-full">
+            <div className="flex-1 flex space-x-2">
+              {/* Map through the columns and render each one */}
+              {columns.map((column, colIndex) => (
+                <div
+                  key={colIndex}
+                  className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                >
+                  {column.map((track, trackIndex) => (
+                    <div className="grid grid-cols-6 gap-2" key={trackIndex}>
+                      <div className="col-span-1 text-right">
+                        {/* Calculate the correct track number */}
+                        {colIndex * column.length + trackIndex + 1}.
                       </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
+                      <div className="col-span-5">{track.name}</div>
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
-          {/* ALBUM DETAILS */}
 
-          {/* ALBUM IMAGE CONTAINER */}
+          {/* ART */}
           <div className="flex-1 flex justify-center items-center pb-[2%]">
             <div className="w-full h-0 pb-[100%] relative">
               <img
@@ -118,17 +119,21 @@ export const AlbumPosterStyleB = ({ album }) => {
               />
             </div>
           </div>
-          {palette
-            .map((color) => (
-              <div
-                className="w-1/4 h-[0.3em] md:h-[calc(0.36em*1.6)] mt-[2%]"
-                key={color}
-                style={{
-                  backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
-                }}
-              />
-            ))
-            .slice(2, 3)}
+
+          {/* ACCENT BAR */}
+          <div>
+            {palette
+              .map((color) => (
+                <div
+                  className="w-1/4 h-[0.3em] md:h-[calc(0.36em*1.6)] mt-[2%]"
+                  key={color}
+                  style={{
+                    backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
+                  }}
+                />
+              ))
+              .slice(2, 3)}
+          </div>
         </div>
       </div>
       {/* POSTER END*/}

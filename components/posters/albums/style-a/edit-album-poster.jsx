@@ -58,7 +58,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
         editing poster
       </div>
       <div className="absolute inset-0 flex flex-col p-[5%]">
-        {/* Image Container (top half) */}
+        {/* ART */}
         <div className="flex-1 flex justify-center items-center pb-[2%]">
           <div className="w-full h-0 pb-[100%] relative">
             <img
@@ -71,10 +71,10 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
           </div>
         </div>
 
-        {/* BOTTOM HALF */}
+        {/* DETAILS */}
         <div className="flex-1 pb-[1%]">
           <div className="flex flex-row justify-between h-full">
-            <div className="flex-1">
+            <div className="flex-1 w-1/2">
               <div className="flex w-[8em] md:w-[calc(8em*1.6)] h-[0.6em] md:h-[calc(0.66em*1.6)] mb-[5%]">
                 {palette?.map((color, index) => (
                   <div
@@ -86,13 +86,13 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                   />
                 ))}
               </div>
-              <div className="mb-[0.4em] md:mb-[calc(0.4em*1.6)]">
+              <div className="mb-[0.4em] md:mb-[calc(0.4em*1.6)] w-full">
                 <input
                   type="text"
                   name="artist"
                   value={edit.artists[0].name}
                   onChange={(e) => handleArtistChange(e.target.value)}
-                  className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-[6em] md:max-w-[calc(6em*1.6)] mb-[0.2em] md:mb[calc(0.2em*0.6)] bg-slate-200"
+                  className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-full mb-[0.2em] md:mb[calc(0.2em*0.6)] bg-slate-200"
                 />
 
                 <input
@@ -100,10 +100,10 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                   name="title"
                   value={edit.name}
                   onChange={(e) => handleTitleChange(e.target.value)}
-                  className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-w-[6em] md:max-w-[calc(6em*1.6)] bg-slate-200"
+                  className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-w-full bg-slate-200"
                 />
 
-                <div className="my-0">
+                <div className="w-full">
                   {edit &&
                     edit.genres
                       ?.map((genre, index) => (
@@ -146,8 +146,8 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
               </div>
             </div>
 
-            {/* Remaining Two-Thirds: Tracklist */}
-            <div className="flex-1 flex ">
+            {/* TRACKLIST */}
+            <div className="flex-1">
               {edit.tracks.items.length <= 12 ? (
                 /* One Column for 10 tracks or fewer */
                 <div className="flex flex-col justify-start uppercase font-bold text-[0.47em] md:text-[calc(0.47em*1.6)] w-full">
@@ -226,29 +226,17 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
             </div>
           </div>
         </div>
+
+        {/* TIME, DATE, LABEL */}
         <div>
           <div className="flex flex-row justify-between text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase">
             <p>
               {edit.album_length} / {edit.release_date.slice(0, 4)}{" "}
             </p>
-            {/* <div>
-                  <input
-                    type="text"
-                    value={length}
-                    className="max-w-[4em] md:max-w-[calc(4em*0.6)]"
-                  />{" "}
-                  /{" "}
-                  <input
-                    type="text"
-                    value={releaseDate}
-                    className="max-w-[4em] md:max-w-[calc(4em*0.6)]"
-                  />
-                </div> */}
+
             <p>{edit.label}</p>
-            {/* <input type="text" value={label} /> */}
           </div>
         </div>
-        {/* BOTTOM HALF */}
       </div>
     </div>
   );

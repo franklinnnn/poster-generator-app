@@ -2,6 +2,7 @@
 import ResultProvider from "@/components/results-context";
 import { Search } from "@/components/search";
 import Image from "next/image";
+import Link from "next/link";
 
 const MainPage = () => {
   return (
@@ -18,15 +19,24 @@ const MainPage = () => {
             with a unique color palette inspired by the album art.
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center mt-6">
-            <div className="relative md:w-72 aspect-[2/3]">
-              <Image src="/landing/poster-c.png" alt="Poster C" layout="fill" />
-            </div>
-            <div className="relative md:w-72 aspect-[2/3]">
+            <Link
+              href="/album/79CDvmQOwJBEpd6gL6zgN9"
+              className="relative md:w-72 aspect-[2/3]"
+            >
               <Image src="/landing/poster-a.png" alt="Poster A" layout="fill" />
-            </div>
-            <div className="relative md:w-72 aspect-[2/3]">
+            </Link>
+            <Link
+              href="/album/4KjbNbnTnJ97kZgQkOHr6v"
+              className="relative md:w-72 aspect-[2/3]"
+            >
               <Image src="/landing/poster-b.png" alt="Poster B" layout="fill" />
-            </div>
+            </Link>
+            <Link
+              href="/album/1A2GTWGtFfWp7KSQTwWOyo"
+              className="relative md:w-72 aspect-[2/3]"
+            >
+              <Image src="/landing/poster-c.png" alt="Poster C" layout="fill" />
+            </Link>
           </div>
         </div>
       </main>

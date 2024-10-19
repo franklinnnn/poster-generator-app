@@ -26,7 +26,7 @@ export const ResultsCard = ({ item, layout }) => {
           />
         </div>
       ) : (
-        <div className="relative rounded-md aspect-square w-full overflow-hidden group">
+        <div className="relative rounded-sm aspect-square w-full overflow-hidden group">
           <div className="absolute bottom-0 left-0 p-2 w-full bg-base-200 opacity-90 hidden font-bold group-hover:block z-10 transition">
             <p className="text-2xl">{item.name}</p>
             <p className="text-sm">{item.artists[0].name}</p>
@@ -34,7 +34,7 @@ export const ResultsCard = ({ item, layout }) => {
           <img
             src={item.images[1].url}
             alt="Album cover"
-            className="rounded-md"
+            className="rounded-sm"
           />
         </div>
       )}

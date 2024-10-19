@@ -74,6 +74,45 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
 
   const columns = dynamicChunkArray(edit.tracks.items);
 
+  var dateOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  const formatTime = (timeString) => {
+    // Split the timeString by colon
+    if (!timeString) return "Invalid time format";
+    const timeParts = timeString.split(":");
+
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    // If it's in HH:MM:SS format
+    if (timeParts.length === 3) {
+      hours = parseInt(timeParts[0], 10);
+      minutes = parseInt(timeParts[1], 10);
+      seconds = parseInt(timeParts[2], 10);
+    }
+    // If it's in MM:SS format
+    else if (timeParts.length === 2) {
+      minutes = parseInt(timeParts[0], 10);
+      seconds = parseInt(timeParts[1], 10);
+    }
+
+    // Build the result string
+    const result = [
+      hours > 0 ? `${hours} hr` : null,
+      minutes > 0 ? `${minutes} min` : null,
+      seconds > 0 ? `${seconds} sec` : null,
+    ]
+      .filter(Boolean) // Remove nulls
+      .join(" "); // Join parts with space
+
+    return result;
+  };
+
   return (
     <div>
       {/* POSTER START*/}
@@ -84,97 +123,46 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
             ? "bg-slate-100 text-slate-900"
             : "bg-slate-900 text-slate-100"
         }
-        
         `}
       >
         <div className="absolute left-0 top-0 px-4 w-full bg-secondary/70 uppercase font-bold z-20">
           editing poster
         </div>
         {/* Canvas container with 2:3 aspect ratio */}
-        <div className="absolute inset-0 flex flex-col p-[5%]">
-          {/* ALBUM DETAILS CONTAINER */}
-          <div className="flex-1">
-            <div className="flex">
-              <div>
-                <div className="flex flex-col">
-                  <input
-                    type="text"
-                    name="artist"
-                    value={edit.artists[0].name}
-                    onChange={(e) => handleArtistChange(e.target.value)}
-                    className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-[6em] md:max-w-[calc(6em*1.6)] mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
-                  />
-                  <input
-                    type="text"
-                    name="title"
-                    value={edit.name}
-                    onChange={(e) => handleTitleChange(e.target.value)}
-                    className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-w-[6em] md:max-w-[calc(6em*1.6)] bg-slate-200"
-                  />
-                </div>
-                <div>
-                  {edit &&
-                    edit.genres
-                      ?.map((genre, index) => (
-                        <input
-                          type="text"
-                          key={index}
-                          value={genre}
-                          onChange={(e) =>
-                            handleGenreChange(e.target.value, index)
-                          }
-                          className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200"
-                        />
-                      ))
-                      .slice(0, 2)}
-                  {edit.genres.length === 1 && !showGenreInput && (
-                    <button onClick={() => setShowGenreInput(true)}>+</button>
-                  )}
-
-                  {showGenreInput && (
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Enter new genre"
-                        value={newGenre}
-                        onChange={(e) => setNewGenre(e.target.value)}
-                        className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200"
-                      />
-                      <button onClick={handleAddGenre}>ok</button>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="flex flex-col flex-1 items-end w-full">
-                <div className="flex w-full items-end justify-end gap-2 ">
-                  <div className="flex flex-col items-end justify-between text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase h-full">
-                    <p>{edit.album_length}</p>
-                    <p>{edit.release_date.slice(0, 4)}</p>
-                    <p className="text-[0.45em] md:text-[calc(0.45em*1.6)]">
-                      {edit.label}
-                    </p>
-                  </div>
-                  <img
-                    src={edit.qr_code_url ? edit.qr_code_url : null}
-                    alt="Album QR code"
-                    title="Album QR code"
-                    className="w-[2.5em] md:w-[calc(2.5em*1.6)]"
-                  />
-                </div>
-              </div>
+        <div className="absolute inset-0 flex flex-col items-evenly justify-evenly p-[7%]">
+          {/* ARTIST, TITLE, ART */}
+          <div>
+            <div className="flex justify-between items-start pb-[1%]">
+              <input
+                type="text"
+                name="artist"
+                value={edit.artists[0].name}
+                onChange={(e) => handleArtistChange(e.target.value)}
+                className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase w-1/2 bg-slate-200 mr-[0.2em]"
+              />
+              <input
+                type="text"
+                name="title"
+                value={edit.name}
+                onChange={(e) => handleTitleChange(e.target.value)}
+                className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase w-1/2 leading-none  bg-slate-200"
+              />
             </div>
-
-            <div className="flex w-full h-[0.3em] md:h-[calc(0.36em*1.6)] my-[2%]">
-              {palette?.map((color) => (
-                <div
-                  className="w-full h-full"
-                  key={color}
-                  style={{
-                    backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
-                  }}
+            <div className="flex-1 flex justify-center items-center pb-[2%]">
+              <div className="w-full h-0 pb-[100%] relative">
+                <img
+                  ref={imgRef}
+                  src={edit ? edit.images[0].url : "/vercel.svg"}
+                  alt="Album cover"
+                  crossOrigin="anonymous"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
-              ))}
+              </div>
             </div>
+          </div>
+
+          {/* TRACKLIST */}
+          <div className="flex-1">
             <div className="flex flex-row justify-between h-full">
               <div className="flex-1 flex space-x-2">
                 {/* Map through the columns and render each one */}
@@ -204,51 +192,49 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
               </div>
             </div>
           </div>
-          {/* ALBUM DETAILS */}
 
-          {/* ALBUM IMAGE CONTAINER */}
-          <div className="flex-1 flex justify-center items-center pb-[2%]">
-            <div className="w-full h-0 pb-[100%] relative">
-              <img
-                ref={imgRef}
-                src={edit ? edit.images[0].url : "/vercel.svg"}
-                alt="Album cover"
-                crossOrigin="anonymous"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+          {/* DETAILS */}
+          <div className="flex w-full items-end justify-between gap-2 border-t-2 border-slate-900 pt-[2%]">
+            <div className="flex flex-col">
+              <div className="flex flex-col items-start justify-start text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold h-full pb-[2%]">
+                <p className="flex gap-[0.4em] text-[0.6em] md:text-[calc(0.6em*1.6)] capitalize">
+                  <span>
+                    {new Date(edit.release_date).toLocaleDateString(
+                      "en-US",
+                      dateOptions
+                    )}
+                  </span>
+                  •
+                  <span className="lowercase">
+                    {formatTime(edit.album_length)}
+                  </span>
+                </p>
+                <p className="text-[0.6em] md:text-[calc(0.6em*1.6)]">
+                  Released by <span>{edit.label}</span>
+                </p>
+              </div>
+              <div className="flex gap-[0.2em]">
+                {palette?.map((color) => (
+                  <div
+                    className="w-[1em] md:w-[calc(1em*1.6)] h-[1em] md:h-[calc(1em*1.6)] rounded-full"
+                    key={color}
+                    style={{
+                      backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
+            <img
+              src={edit.qr_code_url ? edit.qr_code_url : null}
+              alt="Album QR code"
+              title="Album QR code"
+              className="w-[2.5em] md:w-[calc(2.5em*1.6)]"
+            />
           </div>
-          {palette
-            .map((color) => (
-              <div
-                className="w-1/4 h-[0.3em] md:h-[calc(0.36em*1.6)] mt-[2%]"
-                key={color}
-                style={{
-                  backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
-                }}
-              />
-            ))
-            .slice(2, 3)}
         </div>
       </div>
       {/* POSTER END*/}
-
-      <div className="flex gap-4 my-6">
-        <button
-          onClick={() => setTheme("light")}
-          className="btn btn-secondary btn-xs md:btn-sm uppercase w-24 rounded-sm"
-          disabled={theme === "light"}
-        >
-          light
-        </button>
-        <button
-          onClick={() => setTheme("dark")}
-          className="btn btn-secondary btn-xs md:btn-sm uppercase w-24 rounded-sm"
-          disabled={theme === "dark"}
-        >
-          dark
-        </button>
-      </div>
     </div>
   );
 };
