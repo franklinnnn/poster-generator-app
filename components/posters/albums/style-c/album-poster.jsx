@@ -1,5 +1,5 @@
 import useColorPalette from "@/utils/color-palette";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { EditContext } from "../edit-context";
 
 const dynamicChunkArray = (array) => {
@@ -82,14 +82,16 @@ export const AlbumPosterStyleC = ({ album }) => {
           <div>
             <div className="flex justify-between items-start pb-[1%]">
               <p
-                className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase min-w-[25%]"
-                style={{ fontSize: `${artistTextSize}em` }}
+                // className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase min-w-[25%]"
+                className="artist-text min-w-[25%]"
+                style={{ "--artist-text-size": `${artistTextSize}em` }}
               >
                 {album.artists[0].name}
               </p>
               <p
-                className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none text-end"
-                style={{ fontSize: `${albumTextSize}em` }}
+                // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none text-end"
+                className="album-text leading-none text-end"
+                style={{ "--album-text-size": `${albumTextSize}em` }}
               >
                 {album.name}
               </p>
@@ -115,7 +117,9 @@ export const AlbumPosterStyleC = ({ album }) => {
                 {columns.map((column, colIndex) => (
                   <div
                     key={colIndex}
-                    className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                    // className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                    className="tracks-text flex-1 flex flex-col gap-[0.2em]"
+                    style={{ "--tracks-text-size": `${tracksTextSize}em` }}
                   >
                     {column.map((track, trackIndex) => (
                       <div className="grid grid-cols-6 gap-2" key={trackIndex}>

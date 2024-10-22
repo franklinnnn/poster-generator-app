@@ -139,16 +139,17 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
                 name="artist"
                 value={edit.artists[0].name}
                 onChange={(e) => handleArtistChange(e.target.value)}
-                className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase w-1/2 bg-slate-200 mr-[0.2em]"
-                style={{ fontSize: `${artistTextSize}em` }}
+                className="artist-text w-1/2 bg-slate-200 mr-[0.2em]"
+                style={{ "--artist-text-size": `${artistTextSize}em` }}
               />
               <input
                 type="text"
                 name="title"
                 value={edit.name}
                 onChange={(e) => handleTitleChange(e.target.value)}
-                className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase w-1/2 leading-none  bg-slate-200"
-                style={{ fontSize: `${albumTextSize}em` }}
+                // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase w-1/2 leading-none  bg-slate-200"
+                className="album-text w-1/2 leading-none bg-slate-200"
+                style={{ "--album-text-size": `${albumTextSize}em` }}
               />
             </div>
             <div className="flex-1 flex justify-center items-center pb-[2%]">
@@ -172,7 +173,11 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
                 {columns.map((column, colIndex) => (
                   <div
                     key={colIndex}
-                    className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                    // className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                    className="tracks-text flex-1 flex-col gap-[0.2em]"
+                    style={{
+                      "--tracks-text-size": `${tracksTextSize}em`,
+                    }}
                   >
                     {column.map((track, trackIndex) => (
                       <div className="grid grid-cols-6 gap-2" key={trackIndex}>

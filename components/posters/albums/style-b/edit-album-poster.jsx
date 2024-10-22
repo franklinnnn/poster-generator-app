@@ -1,5 +1,6 @@
 import useColorPalette from "@/utils/color-palette";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { EditContext } from "../edit-context";
 
 const dynamicChunkArray = (array) => {
   const totalTracks = array.length;
@@ -27,6 +28,8 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
   const [showGenreInput, setShowGenreInput] = useState(false);
   const [newGenre, setNewGenre] = useState("");
   const [theme, setTheme] = useState("light");
+  const { bgColor, textColor, artistTextSize, albumTextSize, tracksTextSize } =
+    useContext(EditContext);
 
   const [loading, setLoading] = useState(true);
 
@@ -91,7 +94,10 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
           editing poster
         </div>
         {/* Canvas container with 2:3 aspect ratio */}
-        <div className="absolute inset-0 flex flex-col justify-evenly p-[5%]">
+        <div
+          className="absolute inset-0 flex flex-col justify-evenly p-[5%]"
+          style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
+        >
           {/* DETAILS */}
           <div className="flex-1">
             <div className="flex">
@@ -102,14 +108,20 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
                     name="artist"
                     value={edit.artists[0].name}
                     onChange={(e) => handleArtistChange(e.target.value)}
-                    className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-full mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
+                    // className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-full mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
+
+                    className="artist-text max-w-full mb-[0.1em] md:mb-[calc(0.1em*0.6)] bg-slate-200"
+                    style={{ "--artist-text-size": `${artistTextSize}em` }}
                   />
                   <input
                     type="text"
                     name="title"
                     value={edit.name}
                     onChange={(e) => handleTitleChange(e.target.value)}
-                    className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-full mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
+                    // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-full mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
+
+                    className="album-text max-w-full mb-[0.1em] md:mb-[calc(0.1em*0.6)] bg-slate-200"
+                    style={{ "--album-text-size": `${albumTextSize}em` }}
                   />
                 </div>
                 <div className="flex gap-[0.2em]">
@@ -184,7 +196,11 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
               {columns.map((column, colIndex) => (
                 <div
                   key={colIndex}
-                  className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                  // className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                  className="tracks-text flex-1 flex-col gap-[0.2em]"
+                  style={{
+                    "--tracks-text-size": `${tracksTextSize}em`,
+                  }}
                 >
                   {column.map((track, trackIndex) => (
                     <div className="grid grid-cols-6 gap-2" key={trackIndex}>
@@ -237,23 +253,6 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
         </div>
       </div>
       {/* POSTER END*/}
-
-      <div className="flex gap-4 my-6">
-        <button
-          onClick={() => setTheme("light")}
-          className="btn btn-secondary btn-xs md:btn-sm uppercase w-24 rounded-sm"
-          disabled={theme === "light"}
-        >
-          light
-        </button>
-        <button
-          onClick={() => setTheme("dark")}
-          className="btn btn-secondary btn-xs md:btn-sm uppercase w-24 rounded-sm"
-          disabled={theme === "dark"}
-        >
-          dark
-        </button>
-      </div>
     </div>
   );
 };

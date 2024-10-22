@@ -1,10 +1,13 @@
 import useColorPalette from "@/utils/color-palette";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { EditContext } from "../edit-context";
 
 export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
   const [palette, imgRef] = useColorPalette(edit.images[0].url);
   const [showGenreInput, setShowGenreInput] = useState(false);
   const [newGenre, setNewGenre] = useState("");
+  const { bgColor, textColor, artistTextSize, albumTextSize, tracksTextSize } =
+    useContext(EditContext);
 
   const [loading, setLoading] = useState(true);
 
@@ -57,7 +60,10 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
       <div className="absolute left-0 top-0 px-4 w-full bg-primary/70 uppercase font-bold z-20">
         editing poster
       </div>
-      <div className="absolute inset-0 flex flex-col p-[5%]">
+      <div
+        className="absolute inset-0 flex flex-col p-[5%]"
+        style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
+      >
         {/* ART */}
         <div className="flex-1 flex justify-center items-center pb-[2%]">
           <div className="w-full h-0 pb-[100%] relative">
@@ -92,7 +98,11 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                   name="artist"
                   value={edit.artists[0].name}
                   onChange={(e) => handleArtistChange(e.target.value)}
-                  className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-full mb-[0.2em] md:mb[calc(0.2em*0.6)] bg-slate-200"
+                  // className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-full mb-[0.2em] md:mb[calc(0.2em*0.6)] bg-slate-200"
+                  className="artist-text max-w-full mb-[0.2em] md:mb[calc(0.2em*0.6)] bg-slate-200"
+                  style={{
+                    "--artist-text-size": `${artistTextSize}em`,
+                  }}
                 />
 
                 <input
@@ -100,7 +110,11 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                   name="title"
                   value={edit.name}
                   onChange={(e) => handleTitleChange(e.target.value)}
-                  className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-w-full bg-slate-200"
+                  // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-w-full bg-slate-200"
+                  className="album-text leading-none max-w-full bg-slate-200"
+                  style={{
+                    "--album-text-size": `${albumTextSize}em`,
+                  }}
                 />
 
                 <div className="w-full">
@@ -150,7 +164,13 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
             <div className="flex-1">
               {edit.tracks.items.length <= 12 ? (
                 /* One Column for 10 tracks or fewer */
-                <div className="flex flex-col justify-start uppercase font-bold text-[0.47em] md:text-[calc(0.47em*1.6)] w-full">
+                <div
+                  // className="flex flex-col justify-start uppercase font-bold text-[0.47em] md:text-[calc(0.47em*1.6)] w-full"
+                  className="tracks-text flex flex-col justify-start w-full"
+                  style={{
+                    "--tracks-text-size": `${tracksTextSize}em`,
+                  }}
+                >
                   {edit.tracks.items.map((track, index) => (
                     <div
                       className="grid grid-cols-6 gap-2 mb-[0.1em] md:mb[calc(0.1em*0.6 )]"
@@ -170,7 +190,13 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                 </div>
               ) : (
                 /* Two Columns for more than 10 tracks */
-                <div className="flex w-full space-x-2 uppercase font-bold text-[0.45em] md:text-[calc(0.45em*1.6)]">
+                <div
+                  // className="flex w-full space-x-2 uppercase font-bold text-[0.45em] md:text-[calc(0.45em*1.6)]"
+                  className="tracks-text flex w-full space-x-2"
+                  style={{
+                    "--tracks-text-size": `${tracksTextSize}em`,
+                  }}
+                >
                   <div className="flex-1 flex flex-col justify-start gap-[0.2em] md:gap-[calc(0.2em*1.6)]">
                     {edit.tracks.items
                       .slice(0, Math.ceil(edit.tracks.items.length / 2))

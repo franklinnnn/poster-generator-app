@@ -1,5 +1,6 @@
 import useColorPalette from "@/utils/color-palette";
-import React from "react";
+import React, { useContext } from "react";
+import { EditContext } from "../edit-context";
 
 const dynamicChunkArray = (array) => {
   const totalTracks = array.length;
@@ -24,6 +25,8 @@ const dynamicChunkArray = (array) => {
 
 export const AlbumPosterStyleB = ({ album }) => {
   const [palette, imgRef] = useColorPalette(album.images[0].url);
+  const { bgColor, textColor, artistTextSize, albumTextSize, tracksTextSize } =
+    useContext(EditContext);
 
   const columns = dynamicChunkArray(album.tracks.items);
 
@@ -32,15 +35,26 @@ export const AlbumPosterStyleB = ({ album }) => {
       {/* POSTER START*/}
       <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 border border-base-300 overflow-y-clip ">
         {/* Canvas container with 2:3 aspect ratio */}
-        <div className="absolute inset-0 flex flex-col justify-evenly p-[5%]">
+        <div
+          className="absolute inset-0 flex flex-col justify-evenly p-[5%]"
+          style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
+        >
           {/* DETAILS */}
           <div className="flex-1">
             <div className="flex">
               <div>
-                <p className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase">
+                <p
+                  // className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase"
+                  className="artist-text"
+                  style={{ "--artist-text-size": `${artistTextSize}em` }}
+                >
                   {album.artists[0].name}
                 </p>
-                <p className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none">
+                <p
+                  // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none"
+                  className="album-text leading-none"
+                  style={{ "--album-text-size": `${albumTextSize}em` }}
+                >
                   {album.name}
                 </p>
                 <div className="mb-[0.4em] md:mb-[calc(0.4em*1.6)]">
@@ -91,7 +105,9 @@ export const AlbumPosterStyleB = ({ album }) => {
               {columns.map((column, colIndex) => (
                 <div
                   key={colIndex}
-                  className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                  // className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                  className="tracks-text flex-1 flex flex-col gap-[0.2em]"
+                  style={{ "--tracks-text-size": `${tracksTextSize}em` }}
                 >
                   {column.map((track, trackIndex) => (
                     <div className="grid grid-cols-6 gap-2" key={trackIndex}>

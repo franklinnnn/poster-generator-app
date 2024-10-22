@@ -24,3 +24,31 @@
   align-items: center;
   overflow: hidden;
 }
+
+.artist-text {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: var(--artist-text-size, 0.8em);
+}
+.album-text {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: var(--album-text-size, 1em);
+}
+.tracks-text {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: var(--album-text-size, 0.5em);
+}
+
+@media (min-width: 768px) {
+  .artist-text {
+    font-size: calc(var(--artist-text-size) * 1.6);
+  }
+  .album-text {
+    font-size: calc(var(--album-text-size) * 1.6);
+  }
+  .tracks-text {
+    font-size: calc(var(--tracks-text-size) * 1.6);
+  }
+}
