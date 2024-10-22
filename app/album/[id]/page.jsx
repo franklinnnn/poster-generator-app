@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { calculateAlbumLength, getGenres } from "@/utils/spotify";
 
@@ -13,6 +13,11 @@ import {
 import { AlbumPosterLoader } from "@/components/posters/albums/style-a/album-poster-loader";
 import { AlbumPoster } from "@/components/posters/albums/album-poster";
 import { EditAlbumPoster } from "@/components/posters/albums/edit-album-poster";
+import { EditOptions } from "@/components/posters/albums/edit-options";
+import EditProvider, {
+  EditContext,
+} from "@/components/posters/albums/edit-context";
+import { PageButtons } from "@/components/posters/albums/page-buttons";
 
 const AlbumPosterPage = () => {
   const params = useParams();
@@ -72,110 +77,60 @@ const AlbumPosterPage = () => {
     fetchAlbum();
   }, []);
 
-  const handleEditPoster = () => {
-    // do something
-    setShowEdit(true);
-    console.log("editing poster");
-  };
-
-  const handleRevertOriginal = () => {
-    setAlbum((prev) => ({ ...prev, is_edited: false }));
-  };
-
-  const handleSaveEdit = () => {
-    console.log("saved edit");
-    alert("poster edited");
-    setAlbum((prev) => ({ ...prev, is_edited: true }));
-    setShowEdit(false);
-  };
-
-  const handleSavePoster = () => {
-    console.log("save poster");
-    toPng(posterRef.current, { cacheBust: false })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = `album-poster-${album.artists[0].name}-${album.name}-swatch-frame.png`;
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handleSelectStyle = (value) => {
-    setStyle(value);
-    console.log(style);
-  };
-
   return (
-    <div className="flex flex-col items-center justify-start gap-6 p-4 min-h-96">
-      <div className="flex flex-col md:flex-row w-full max-w-[1000px]">
-        <div ref={posterRef} className="flex justify-center w-full md:w-2/3">
-          <div>
-            {showEdit ? (
-              <>
-                {loading ? (
-                  <AlbumPosterLoader />
-                ) : (
-                  <EditAlbumPoster
-                    edit={editAlbum}
-                    setEdit={setEditAlbum}
-                    style={style}
-                  />
-                )}
-              </>
-            ) : (
-              <>
-                {loading ? (
-                  <AlbumPosterLoader />
-                ) : (
-                  <AlbumPoster
-                    album={album.is_edited ? editAlbum : album}
-                    posterRef={posterRef}
-                    style={style}
-                  />
-                )}
-              </>
-            )}
+    <EditProvider>
+      <div className="flex flex-col items-center justify-start gap-6 p-4 min-h-96">
+        <div className="flex flex-col md:flex-row w-full max-w-[1000px]">
+          <div ref={posterRef} className="flex justify-center w-full md:w-2/3">
+            <div>
+              {showEdit ? (
+                <>
+                  {loading ? (
+                    <AlbumPosterLoader />
+                  ) : (
+                    <EditAlbumPoster
+                      edit={editAlbum}
+                      setEdit={setEditAlbum}
+                      style={style}
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  {loading ? (
+                    <AlbumPosterLoader />
+                  ) : (
+                    <AlbumPoster
+                      album={album.is_edited ? editAlbum : album}
+                      posterRef={posterRef}
+                      style={style}
+                    />
+                  )}
+                </>
+              )}
+            </div>
           </div>
+          {loading ? (
+            <AlbumSelectStyleLoader />
+          ) : (
+            <>
+              {showEdit ? (
+                <EditOptions />
+              ) : (
+                <AlbumSelectStyle setStyle={setStyle} album={album} />
+              )}
+            </>
+          )}
         </div>
-        {loading ? (
-          <AlbumSelectStyleLoader />
-        ) : (
-          <>
-            {showEdit ? (
-              <div>editor stuff</div>
-            ) : (
-              <AlbumSelectStyle setStyle={setStyle} album={album} />
-            )}
-          </>
-        )}
+        <PageButtons
+          album={album}
+          setAlbum={setAlbum}
+          showEdit={showEdit}
+          setShowEdit={setShowEdit}
+          posterRef={posterRef}
+        />
       </div>
-      <div className="flex justify-center gap-6 w-full">
-        <button
-          className="btn btn-primary rounded-sm capitalize"
-          onClick={showEdit ? () => setShowEdit(false) : handleEditPoster}
-        >
-          {showEdit ? "Cancel" : "Edit poster"}
-        </button>
-        {showEdit ? null : (
-          <button
-            className="btn btn-primary rounded-sm capitalize"
-            onClick={handleRevertOriginal}
-            // disabled={!editAlbum.is_edited ? !editAlbum.is_edited : null}
-          >
-            revert original
-          </button>
-        )}
-        <button
-          className="btn btn-primary rounded-sm capitalize"
-          onClick={showEdit ? handleSaveEdit : handleSavePoster}
-        >
-          {showEdit ? "Save edit" : "Save poster"}
-        </button>
-      </div>
-    </div>
+    </EditProvider>
   );
 };
 

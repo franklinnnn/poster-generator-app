@@ -1,5 +1,6 @@
 import useColorPalette from "@/utils/color-palette";
-import React from "react";
+import React, { useContext } from "react";
+import { EditContext } from "../edit-context";
 
 const dynamicChunkArray = (array) => {
   const totalTracks = array.length;
@@ -24,6 +25,8 @@ const dynamicChunkArray = (array) => {
 
 export const AlbumPosterStyleC = ({ album }) => {
   const [palette, imgRef] = useColorPalette(album.images[0].url);
+  const { bgColor, textColor, artistTextSize, albumTextSize, tracksTextSize } =
+    useContext(EditContext);
 
   const columns = dynamicChunkArray(album.tracks.items);
 
@@ -71,14 +74,23 @@ export const AlbumPosterStyleC = ({ album }) => {
       {/* POSTER START*/}
       <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] text-slate-900 bg-slate-100 border border-base-300 overflow-y-clip ">
         {/* Canvas container with 2:3 aspect ratio */}
-        <div className="absolute inset-0 flex flex-col items-evenly justify-evenly p-[7%]">
+        <div
+          className="absolute inset-0 flex flex-col items-evenly justify-evenly p-[7%]"
+          style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
+        >
           {/* ARTIST, TITLE, ART */}
           <div>
             <div className="flex justify-between items-start pb-[1%]">
-              <p className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase min-w-[25%]">
+              <p
+                className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase min-w-[25%]"
+                style={{ fontSize: `${artistTextSize}em` }}
+              >
                 {album.artists[0].name}
               </p>
-              <p className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none text-end">
+              <p
+                className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none text-end"
+                style={{ fontSize: `${albumTextSize}em` }}
+              >
                 {album.name}
               </p>
             </div>

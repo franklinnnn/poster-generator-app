@@ -1,5 +1,6 @@
 import useColorPalette from "@/utils/color-palette";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { EditContext } from "../edit-context";
 
 const dynamicChunkArray = (array) => {
   const totalTracks = array.length;
@@ -26,7 +27,8 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
   const [palette, imgRef] = useColorPalette(edit.images[0].url);
   const [showGenreInput, setShowGenreInput] = useState(false);
   const [newGenre, setNewGenre] = useState("");
-  const [theme, setTheme] = useState("light");
+  const { bgColor, textColor, artistTextSize, albumTextSize, tracksTextSize } =
+    useContext(EditContext);
 
   const [loading, setLoading] = useState(true);
 
@@ -118,18 +120,17 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
       {/* POSTER START*/}
       <div
         className={`relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] border border-base-300 overflow-y-clip 
-        ${
-          theme === "light"
-            ? "bg-slate-100 text-slate-900"
-            : "bg-slate-900 text-slate-100"
-        }
+      
         `}
       >
         <div className="absolute left-0 top-0 px-4 w-full bg-secondary/70 uppercase font-bold z-20">
           editing poster
         </div>
         {/* Canvas container with 2:3 aspect ratio */}
-        <div className="absolute inset-0 flex flex-col items-evenly justify-evenly p-[7%]">
+        <div
+          className="absolute inset-0 flex flex-col items-evenly justify-evenly p-[7%]"
+          style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
+        >
           {/* ARTIST, TITLE, ART */}
           <div>
             <div className="flex justify-between items-start pb-[1%]">
@@ -139,6 +140,7 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
                 value={edit.artists[0].name}
                 onChange={(e) => handleArtistChange(e.target.value)}
                 className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase w-1/2 bg-slate-200 mr-[0.2em]"
+                style={{ fontSize: `${artistTextSize}em` }}
               />
               <input
                 type="text"
@@ -146,6 +148,7 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
                 value={edit.name}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase w-1/2 leading-none  bg-slate-200"
+                style={{ fontSize: `${albumTextSize}em` }}
               />
             </div>
             <div className="flex-1 flex justify-center items-center pb-[2%]">

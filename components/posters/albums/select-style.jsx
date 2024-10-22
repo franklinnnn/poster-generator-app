@@ -57,7 +57,7 @@ export const AlbumSelectStyleLoader = () => {
     <>
       <div className="md:w-1/3 pl-0 md:pl-2 flex flex-col items-center md:items-start md:justify-start ">
         <div className="skeleton m-2 h-6 w-40 rounded-none" />
-        {Array.from({ length: 2 }, (_, i) => (
+        {Array.from({ length: 3 }, (_, i) => (
           <div
             className="skeleton aspect-[2/3] w-24 md:w-40 h-auto m-2 rounded-none origin-top-left"
             key={i}
