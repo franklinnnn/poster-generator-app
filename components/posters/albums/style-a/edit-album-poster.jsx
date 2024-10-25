@@ -53,6 +53,8 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
     }));
   };
 
+  console.log(`${bgColor}aa`);
+
   return (
     <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 border border-base-300 overflow-y-clip ">
       {/* Canvas container with 2:3 aspect ratio */}
@@ -99,7 +101,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                   value={edit.artists[0].name}
                   onChange={(e) => handleArtistChange(e.target.value)}
                   // className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-full mb-[0.2em] md:mb[calc(0.2em*0.6)] bg-slate-200"
-                  className="artist-text max-w-full mb-[0.2em] md:mb[calc(0.2em*0.6)] bg-slate-200"
+                  className="artist-text max-w-full mb-[0.2em] md:mb[calc(0.2em*0.6)] bg-slate-200/40"
                   style={{
                     "--artist-text-size": `${artistTextSize}em`,
                   }}
@@ -111,7 +113,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                   value={edit.name}
                   onChange={(e) => handleTitleChange(e.target.value)}
                   // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-w-full bg-slate-200"
-                  className="album-text leading-none max-w-full bg-slate-200"
+                  className="album-text leading-none max-w-full bg-slate-200/40"
                   style={{
                     "--album-text-size": `${albumTextSize}em`,
                   }}
@@ -128,7 +130,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                           onChange={(e) =>
                             handleGenreChange(e.target.value, index)
                           }
-                          className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200"
+                          className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200/40"
                         />
                       ))
                       .slice(0, 2)}
@@ -183,7 +185,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                         onChange={(e) =>
                           handleTrackChange(e.target.value, index)
                         }
-                        className="col-span-4 uppercase bg-slate-200"
+                        className="col-span-4 uppercase bg-slate-200/40"
                       />
                     </div>
                   ))}
@@ -212,7 +214,7 @@ export const EditAlbumPosterStyleA = ({ edit, setEdit }) => {
                             onChange={(e) =>
                               handleTrackChange(e.target.value, index)
                             }
-                            className="col-span-4 uppercase bg-slate-200"
+                            className="col-span-4 uppercase bg-slate-200/40"
                           />
                         </div>
                       ))}

@@ -74,7 +74,11 @@ export const AlbumPosterStyleA = ({ album, posterRef }) => {
                 </div>
                 <div>
                   <img
-                    src={album.qr_code_url ? album.qr_code_url : null}
+                    src={
+                      album.qr_code_url
+                        ? album.qr_code_url
+                        : "/qrcode-placeholder.png"
+                    }
                     alt="Album QR code"
                     title="Album QR code"
                     className="w-[2.5em] md:w-[calc(2.5em*1.6)]"

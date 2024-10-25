@@ -15,28 +15,23 @@ export const EditOptions = () => {
     tracksTextSize,
     setTracksTextSize,
   } = useContext(EditContext);
-  // const [bgColor, setBgColor] = useState("");
-  // const [textColor, setTextColor] = useState("");
-  // const [artistTextSize, setArtistTextSize] = useState(0.8);
-  // const [albumTextSize, setAlbumTextSize] = useState(1);
-  // const [tracksTextSize, setTracksTextSize] = useState(0.2);
 
-  console.log("colors", bgColor, textColor);
-  console.log("text sizes", artistTextSize, albumTextSize, tracksTextSize);
+  console.log(bgColor, textColor);
+
   return (
-    <div className="md:w-1/3 pl-0 md:pl-2 flex flex-col gap-4 items-center md:items-start md:justify-start font-bold uppercase">
-      <div className="flex md:flex-col gap-2">
-        <div>
-          <h2 htmlFor="">background color</h2>
+    <div className="flex flex-col gap-4 items-center md:items-start md:justify-start md:w-1/3 pl-0 md:pl-2 mt-6 md:mt-0 font-bold uppercase ">
+      <div className="flex md:flex-col gap-4">
+        <div className="color-picker">
+          <h2 className="mb-2">background color</h2>
           <HexColorPicker color={bgColor} onChange={setBgColor} />
         </div>
-        <div>
-          <h2 htmlFor="">text color</h2>
+        <div className="color-picker">
+          <h2 className="mb-2">text color</h2>
           <HexColorPicker color={textColor} onChange={setTextColor} />
         </div>
       </div>
 
-      <div className="text-sm capitalize">
+      <div className="text-sm capitalize w-full md:w-60">
         <h2 className="text-base uppercase">text size</h2>
         <label htmlFor="">artist</label>
         <input
@@ -70,7 +65,7 @@ export const EditOptions = () => {
         />
       </div>
 
-      <div
+      {/* <div
         className="uppercase"
         style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
       >
@@ -84,7 +79,7 @@ export const EditOptions = () => {
             </p>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

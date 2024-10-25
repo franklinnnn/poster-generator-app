@@ -139,7 +139,7 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
                 name="artist"
                 value={edit.artists[0].name}
                 onChange={(e) => handleArtistChange(e.target.value)}
-                className="artist-text w-1/2 bg-slate-200 mr-[0.2em]"
+                className="artist-text w-1/2 bg-slate-200/40 mr-[0.2em]"
                 style={{ "--artist-text-size": `${artistTextSize}em` }}
               />
               <input
@@ -147,8 +147,8 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
                 name="title"
                 value={edit.name}
                 onChange={(e) => handleTitleChange(e.target.value)}
-                // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase w-1/2 leading-none  bg-slate-200"
-                className="album-text w-1/2 leading-none bg-slate-200"
+                // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase w-1/2 leading-none  bg-slate-200/40"
+                className="album-text w-1/2 leading-none bg-slate-200/40"
                 style={{ "--album-text-size": `${albumTextSize}em` }}
               />
             </div>
@@ -191,7 +191,7 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
                           onChange={(e) =>
                             handleTrackChange(e.target.value, trackIndex)
                           }
-                          className="col-span-4 uppercase bg-slate-200"
+                          className="col-span-4 uppercase bg-slate-200/40"
                         />
                       </div>
                     ))}

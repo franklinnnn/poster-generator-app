@@ -80,16 +80,7 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
   return (
     <div>
       {/* POSTER START*/}
-      <div
-        className={`relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] border border-base-300 overflow-y-clip 
-        ${
-          theme === "light"
-            ? "bg-slate-100 text-slate-900"
-            : "bg-slate-900 text-slate-100"
-        }
-        
-        `}
-      >
+      <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] border border-base-300 overflow-y-clip">
         <div className="absolute left-0 top-0 px-4 w-full bg-secondary/70 uppercase font-bold z-20">
           editing poster
         </div>
@@ -110,7 +101,7 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
                     onChange={(e) => handleArtistChange(e.target.value)}
                     // className="text-[0.8em] md:text-[calc(0.8em*1.6)] font-bold uppercase max-w-full mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
 
-                    className="artist-text max-w-full mb-[0.1em] md:mb-[calc(0.1em*0.6)] bg-slate-200"
+                    className="artist-text max-w-full mb-[0.1em] md:mb-[calc(0.1em*0.6)] bg-slate-200/40"
                     style={{ "--artist-text-size": `${artistTextSize}em` }}
                   />
                   <input
@@ -120,7 +111,7 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
                     onChange={(e) => handleTitleChange(e.target.value)}
                     // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase leading-none max-full mb-[0.1em] md:mb[calc(0.1em*0.6)] bg-slate-200"
 
-                    className="album-text max-w-full mb-[0.1em] md:mb-[calc(0.1em*0.6)] bg-slate-200"
+                    className="album-text max-w-full mb-[0.1em] md:mb-[calc(0.1em*0.6)] bg-slate-200/40"
                     style={{ "--album-text-size": `${albumTextSize}em` }}
                   />
                 </div>
@@ -135,7 +126,7 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
                           onChange={(e) =>
                             handleGenreChange(e.target.value, index)
                           }
-                          className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200"
+                          className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200/40"
                         />
                       ))
                       .slice(0, 2)}
@@ -150,7 +141,7 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
                         placeholder="Enter new genre"
                         value={newGenre}
                         onChange={(e) => setNewGenre(e.target.value)}
-                        className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200"
+                        className="text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold uppercase  max-w-[4em] md:max-w-[calc(4em*1.6)] mr-[0.4em] md:mr[calc(0.4em*0.6)] bg-slate-200/40"
                       />
                       <button onClick={handleAddGenre}>ok</button>
                     </div>
@@ -214,7 +205,7 @@ export const EditAlbumPosterStyleB = ({ edit, setEdit }) => {
                         onChange={(e) =>
                           handleTrackChange(e.target.value, trackIndex)
                         }
-                        className="col-span-4 uppercase bg-slate-200"
+                        className="col-span-4 uppercase bg-slate-200/40"
                       />
                     </div>
                   ))}

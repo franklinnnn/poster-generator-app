@@ -40,6 +40,21 @@
   text-transform: uppercase;
   font-size: var(--album-text-size, 0.5em);
 }
+.color-picker .react-colorful {
+  width: 180px;
+  height: 180px;
+  border-radius: 2px;
+}
+.color-picker .react-colorful__saturation-pointer {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+.color-picker .react-colorful__hue-pointer,
+.color-picker .react-colorful__alpha-pointer {
+  width: 16px;
+  border-radius: 2px;
+}
 
 @media (min-width: 768px) {
   .artist-text {
@@ -50,5 +65,20 @@
   }
   .tracks-text {
     font-size: calc(var(--tracks-text-size) * 1.6);
+  }
+  .color-picker .react-colorful {
+    width: 240px;
+    height: 240px;
+    border-radius: 2px;
+  }
+  .color-picker .react-colorful__saturation-pointer {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+  }
+  .color-picker .react-colorful__hue-pointer,
+  .color-picker .react-colorful__alpha-pointer {
+    width: 16px;
+    border-radius: 2px;
   }
 }
