@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { EditAlbumPosterStyleA } from "./style-a/edit-album-poster";
 import { EditAlbumPosterStyleB } from "./style-b/edit-album-poster";
 import { EditAlbumPosterStyleC } from "./style-c/edit-album-poster";
+import { EditContext } from "./edit-context";
 
-export const EditAlbumPoster = ({ edit, setEdit, style }) => {
-  console.log("edit album", style);
+export const EditAlbumPoster = ({ edit, setEdit }) => {
+  const { style } = useContext(EditContext);
   return (
     <>
       {style === "1" && <EditAlbumPosterStyleA edit={edit} setEdit={setEdit} />}

@@ -17,7 +17,6 @@ export const EditOptions = () => {
   } = useContext(EditContext);
 
   console.log(bgColor, textColor);
-
   return (
     <div className="flex flex-col gap-4 items-center md:items-start md:justify-start md:w-1/3 pl-0 md:pl-2 mt-6 md:mt-0 font-bold uppercase ">
       <div className="flex md:flex-col gap-4">

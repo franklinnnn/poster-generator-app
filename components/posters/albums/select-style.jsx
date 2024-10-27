@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   AlbumPosterStyleA,
   AlbumPosterStyleAThumb,
@@ -8,8 +8,10 @@ import {
   AlbumPosterStyleBThumb,
 } from "./style-b/album-poster";
 import { AlbumPosterStyleC } from "./style-c/album-poster";
+import { EditContext } from "./edit-context";
 
-export const AlbumSelectStyle = ({ setStyle, album }) => {
+export const AlbumSelectStyle = ({ album }) => {
+  const { style, setStyle } = useContext(EditContext);
   const styles = [
     {
       name: "Style A",

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AlbumPosterStyleA } from "./style-a/album-poster";
 import { AlbumPosterStyleB } from "./style-b/album-poster";
 import { AlbumPosterStyleC } from "./style-c/album-poster";
+import { EditContext } from "./edit-context";
 
-export const AlbumPoster = ({ album, posterRef, style }) => {
+export const AlbumPoster = ({ album, posterRef }) => {
+  const { style } = useContext(EditContext);
+
   return (
     <>
       {style === "1" && (

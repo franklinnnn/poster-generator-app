@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useState } from "react";
 
 export const EditContext = createContext();
@@ -8,6 +10,7 @@ const EditProvider = ({ children }) => {
   const [artistTextSize, setArtistTextSize] = useState(0.8);
   const [albumTextSize, setAlbumTextSize] = useState(1);
   const [tracksTextSize, setTracksTextSize] = useState(0.5);
+  const [style, setStyle] = useState("1");
 
   return (
     <EditContext.Provider
@@ -22,6 +25,8 @@ const EditProvider = ({ children }) => {
         setAlbumTextSize,
         tracksTextSize,
         setTracksTextSize,
+        style,
+        setStyle,
       }}
     >
       {children}
