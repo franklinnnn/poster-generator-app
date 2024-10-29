@@ -23,7 +23,7 @@ const dynamicChunkArray = (array) => {
   return columns;
 };
 
-export const AlbumPosterStyleC = ({ album }) => {
+export const AlbumPosterStyleC = ({ album, posterRef }) => {
   const [palette, imgRef] = useColorPalette(album.images[0].url);
   const { bgColor, textColor, artistTextSize, albumTextSize, tracksTextSize } =
     useContext(EditContext);
@@ -72,9 +72,10 @@ export const AlbumPosterStyleC = ({ album }) => {
   return (
     <div>
       {/* POSTER START*/}
-      <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] text-slate-900 bg-slate-100 border border-base-300 overflow-y-clip ">
+      <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] text-slate-900 bg-slate-100 border border-base-300 overflow-y-clip shadow-md">
         {/* Canvas container with 2:3 aspect ratio */}
         <div
+          ref={posterRef}
           className="absolute inset-0 flex flex-col items-evenly justify-evenly p-[7%]"
           style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
         >

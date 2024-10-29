@@ -35,22 +35,20 @@ export const AlbumSelectStyle = ({ album }) => {
   };
 
   return (
-    <>
-      <div className="md:w-1/3 pl-0 md:pl-2 flex flex-col items-center md:items-start md:justify-start ">
-        <p className="m-2 uppercase font-bold font-display">style</p>
-        <div className="flex md:flex-col gap-4">
-          {styles.map((style) => (
-            <div
-              className="h-60 w-24 scale-[30%] origin-top-left hover:cursor-pointer hover:-translate-y-2 transition"
-              key={style.id}
-              onClick={() => handleStyleSelect(style.id)}
-            >
-              {style.component}
-            </div>
-          ))}
-        </div>
+    <div className="md:w-1/3 pl-0 md:pl-2 flex flex-col items-center md:items-start md:justify-start">
+      <p className="m-2 uppercase font-bold font-display">style</p>
+      <div className="flex md:flex-col gap-4">
+        {styles.map((style) => (
+          <div
+            className="h-60 w-24 scale-[30%] origin-top-left hover:cursor-pointer hover:-translate-y-2 transition"
+            key={style.id}
+            onClick={() => handleStyleSelect(style.id)}
+          >
+            {style.component}
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

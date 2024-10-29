@@ -23,7 +23,7 @@ const dynamicChunkArray = (array) => {
   return columns;
 };
 
-export const AlbumPosterStyleB = ({ album }) => {
+export const AlbumPosterStyleB = ({ album, posterRef }) => {
   const [palette, imgRef] = useColorPalette(album.images[0].url);
   const {
     bgColor,
@@ -39,9 +39,10 @@ export const AlbumPosterStyleB = ({ album }) => {
   return (
     <div>
       {/* POSTER START*/}
-      <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 overflow-y-clip ">
+      <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 overflow-y-clip shadow-md">
         {/* Canvas container with 2:3 aspect ratio */}
         <div
+          ref={posterRef}
           className="absolute inset-0 flex flex-col justify-evenly p-[5%]"
           style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
         >

@@ -52,7 +52,7 @@ export const PageButtons = ({
       });
   };
   return (
-    <div className="flex justify-center gap-6 w-full">
+    <div className="flex justify-center gap-4 w-full mb-12">
       <button
         className="btn btn-primary rounded-sm capitalize"
         onClick={showEdit ? () => setShowEdit(false) : handleEditPoster}
