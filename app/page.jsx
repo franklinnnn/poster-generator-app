@@ -1,5 +1,6 @@
 "use client";
 import { SamplePosters } from "@/components/posters/sample-posters";
+import { PiFrameCorners } from "react-icons/pi";
 
 const MainPage = () => {
   return (
@@ -15,6 +16,19 @@ const MainPage = () => {
           unique color palette inspired by the album art.
         </p>
         <SamplePosters />
+      </div>
+
+      <div className="my-6">
+        <button
+          className="btn btn-primary md:hidden"
+          onClick={() => window.scrollTo(0, 0)}
+        >
+          Get Started
+        </button>
+      </div>
+
+      <div>
+        <PiFrameCorners size={145} className="rotate-90" />
       </div>
     </main>
   );
