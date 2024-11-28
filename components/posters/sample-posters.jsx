@@ -1,8 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useContext, useEffect, useState } from "react";
-import EditProvider, { EditContext } from "./albums/edit-context";
+import { useContext, useEffect, useState } from "react";
+import { EditContext } from "./albums/edit-context";
 
 export const SamplePosters = () => {
   const router = useRouter();
@@ -34,28 +33,23 @@ export const SamplePosters = () => {
     },
   ];
 
-  // Local state to track when all updates are complete
   const [isReadyToNavigate, setIsReadyToNavigate] = useState(false);
   const [urlToNavigate, setUrlToNavigate] = useState(null);
 
   const handleOnClickSample = (url, newBgColor, newTextColor, newStyle) => {
-    console.log("onclick", newBgColor, newTextColor, newStyle);
-    setIsReadyToNavigate(false); // Reset readiness state before updating
-    setUrlToNavigate(url); // Set the URL for navigation
+    setIsReadyToNavigate(false);
+    setUrlToNavigate(url);
 
-    // Update all states as needed
     setBgColor(newBgColor);
     setTextColor(newTextColor);
     setStyle(newStyle);
 
-    // Once all state updates are triggered, we can mark it ready
     setIsReadyToNavigate(true);
   };
 
-  // Use useEffect to handle routing once the states are updated
   useEffect(() => {
     if (isReadyToNavigate && urlToNavigate) {
-      router.push(urlToNavigate); // Navigate after all states are updated
+      router.push(urlToNavigate);
     }
   }, [isReadyToNavigate, urlToNavigate, router]);
 
@@ -83,39 +77,6 @@ export const SamplePosters = () => {
           />
         </div>
       ))}
-      {/* <Link
-        href="/album/79CDvmQOwJBEpd6gL6zgN9"
-        className="relative md:w-72 aspect-[2/3] bg-primary"
-      >
-        <Image
-          src="/landing/poster-a.png"
-          alt="Poster A"
-          fill={true}
-          className="object-cover"
-        />
-      </Link>
-      <Link
-        href="/album/4KjbNbnTnJ97kZgQkOHr6v"
-        className="relative md:w-72 aspect-[2/3]"
-      >
-        <Image
-          src="/landing/poster-b.png"
-          alt="Poster B"
-          fill={true}
-          className="object-cover"
-        />
-      </Link>
-      <Link
-        href="/album/1A2GTWGtFfWp7KSQTwWOyo"
-        className="relative md:w-72 aspect-[2/3]"
-      >
-        <Image
-          src="/landing/poster-c.png"
-          alt="Poster C"
-          fill={true}
-          className="object-cover"
-        />
-      </Link> */}
     </div>
   );
 };

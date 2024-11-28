@@ -1,7 +1,8 @@
 "use client";
-import { Results } from "@/components/results";
-import { ResultsLoader } from "@/components/results-loader";
+import { Results } from "@/components/results/results";
+import { ResultsLoader } from "@/components/results/results-loader";
 import { searchAlbums } from "@/utils/spotify";
+import { getConfig, searchMovies } from "@/utils/tmdb";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -19,18 +20,27 @@ const ResultsPage = () => {
   const query = searchParams.get("q");
   const type = searchParams.get("type");
 
-  console.log(results);
+  // console.log("results", results);
+  // console.log("type", type);
 
   useEffect(() => {
     if (query) {
       setLoading(true);
-      searchAlbums(query, setResults, setLoading, setError);
+      setResults({
+        query: null,
+        items: null,
+      });
+      if (type === "movie") {
+        searchMovies(query, setResults, setLoading, setError);
+      } else {
+        searchAlbums(query, setResults, setLoading, setError);
+      }
     }
-  }, [query]);
+  }, [query, type]);
 
   return (
     <div className="flex justify-center">
-      <Results results={results} loading={loading} />
+      <Results results={results} type={type} loading={loading} />
     </div>
   );
 };

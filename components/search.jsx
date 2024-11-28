@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { CiSearch } from "react-icons/ci";
 import { useRouter } from "next/navigation";
+import { CiSearch } from "react-icons/ci";
 
 export const Search = () => {
   const router = useRouter();
@@ -20,6 +20,31 @@ export const Search = () => {
         q: searchQuery,
       }).toString();
 
+      if (
+        searchQuery &&
+        searchQuery.includes("https://open.spotify.com/album")
+      ) {
+        router.push(`/album/${searchQuery.slice(31, 53)}`);
+      } else {
+        router.push(`/results?${queryParams}`);
+      }
+    } catch (error) {
+      console.log(error);
+      alert(`Search error: ${error}`);
+    }
+  };
+
+  const handleMovieSearch = (e) => {
+    try {
+      e.preventDefault();
+      if (searchQuery.trim() === "") return;
+      console.log("searching movie", searchQuery);
+
+      const queryParams = new URLSearchParams({
+        type: searchType,
+        q: searchQuery,
+      }).toString();
+
       router.push(`/results?${queryParams}`);
     } catch (error) {
       console.log(error);
@@ -29,36 +54,42 @@ export const Search = () => {
 
   return (
     <div className="flex flex-col items-center gap-4 my-4">
-      {/* <div className="flex gap-4">
-        <button
-          className="btn btn-primary rounded-sm"
+      <div className="flex gap-4">
+        {/* <button
+          className={`btn rounded-sm ${
+            searchType === "album" ? "btn-primary" : "btn-outline"
+          }`}
           value="album"
           onClick={(e) => setSearchType(e.target.value)}
         >
           Album
-        </button>
-        <button
-          className="btn btn-primary rounded-sm"
+        </button> */}
+        {/* <button
+          className={`btn rounded-sm ${
+            searchType === "movie" ? "btn-primary" : "btn-outline"
+          }`}
           value="movie"
-          disabled
           onClick={(e) => setSearchType(e.target.value)}
         >
           Movie
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className="btn btn-primary rounded-sm"
           value="anime"
           disabled
           onClick={(e) => setSearchType(e.target.value)}
         >
           Anime
-        </button>
-      </div> */}
+        </button> */}
+      </div>
 
-      <form onSubmit={handleSearch} className="min-w-72 join rounded-sm">
+      <form
+        onSubmit={searchType === "album" ? handleSearch : handleMovieSearch}
+        className="min-w-96 join rounded-sm"
+      >
         <input
           type="text"
-          placeholder={`Search ${searchType}`}
+          placeholder={`Search ${searchType} or paste Spotify album link`}
           onChange={(e) => setSearchQuery(e.target.value)}
           disabled={loading}
           className="w-full p-2 join-item border-none outline-none focus:border-none focus:outline-none"

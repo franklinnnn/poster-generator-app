@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
 import { PiFrameCorners } from "react-icons/pi";
 
 export const Footer = () => {
@@ -9,7 +8,7 @@ export const Footer = () => {
     <footer className="footer self-end bg-base-200 items-center p-6 mt-auto">
       <aside className="grid-flow-col items-center">
         <PiFrameCorners size={35} className="rotate-90" />
-        <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
+        <p>© {new Date().getFullYear()}</p>
       </aside>
       <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
         <Link href="/" className="link">

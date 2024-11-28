@@ -72,7 +72,7 @@ export const AlbumPosterStyleC = ({ album, posterRef }) => {
   return (
     <div>
       {/* POSTER START*/}
-      <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] text-slate-900 bg-slate-100 border border-base-300 overflow-y-clip shadow-md">
+      <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] text-slate-900 bg-slate-100 overflow-y-clip shadow-md">
         {/* Canvas container with 2:3 aspect ratio */}
         <div
           ref={posterRef}

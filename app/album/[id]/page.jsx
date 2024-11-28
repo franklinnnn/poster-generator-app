@@ -1,10 +1,12 @@
 "use client";
-import axios from "axios";
+
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
+import axios from "axios";
+import { getQrCode } from "@/utils/qrcode";
+
 import { calculateAlbumLength, getGenres } from "@/utils/spotify";
 
-import { getQrCode } from "@/utils/qrcode";
 import {
   AlbumSelectStyle,
   AlbumSelectStyleLoader,

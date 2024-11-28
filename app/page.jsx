@@ -1,6 +1,5 @@
 "use client";
 import { SamplePosters } from "@/components/posters/sample-posters";
-import { PiFrameCorners } from "react-icons/pi";
 
 const MainPage = () => {
   return (
@@ -10,10 +9,8 @@ const MainPage = () => {
           Create Album Posters in Seconds
         </h1>
         <p>
-          Welcome to SwatchFrame — the ultimate app for music lovers and design
-          enthusiasts! Search your favorite albums, generate stunning posters
-          featuring album covers, artist details, and tracklists, all with a
-          unique color palette inspired by the album art.
+          Generate posters featuring album covers, artist details, and
+          tracklists, all with a unique color palette inspired by the album art.
         </p>
         <SamplePosters />
       </div>
@@ -25,10 +22,6 @@ const MainPage = () => {
         >
           Get Started
         </button>
-      </div>
-
-      <div>
-        <PiFrameCorners size={145} className="rotate-90" />
       </div>
     </main>
   );

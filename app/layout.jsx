@@ -12,15 +12,15 @@ export const metadata = {
   description:
     "Create custom posters with color palettes from your favorite albums",
   keywords: "album posters, custom posters, color palettes, music art, design",
-  authors: [{ name: "Your Name", url: "https://yourwebsite.com" }],
+  authors: [{ name: "Franklin Assa", url: "http://localhost:3000" }],
   openGraph: {
     title: "Swatch Frame",
     description:
       "Create custom posters with color palettes from your favorite albums.",
-    url: "https://yourwebsite.com", // Update with your actual URL
+    // url: "https://yourwebsite.com",
     images: [
       {
-        url: "https://yourwebsite.com/path/to/image.jpg", // Update with your image URL
+        // url: "https://yourwebsite.com/path/to/image.jpg",
         width: 800,
         height: 600,
         alt: "Swatch Frame Poster Example",
@@ -34,7 +34,7 @@ export const metadata = {
     title: "Swatch Frame",
     description:
       "Create custom posters with color palettes from your favorite albums.",
-    image: "https://yourwebsite.com/path/to/image.jpg", // Update with your image URL
+    // image: "https://yourwebsite.com/path/to/image.jpg",
   },
 };
 

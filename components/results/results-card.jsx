@@ -6,6 +6,11 @@ export const ResultsCard = ({ item, layout }) => {
   const handleSelectResult = () => {
     router.push(`/album/${item.id}`);
   };
+
+  if (!item || !item.images || !item.artists) {
+    return <div className="skeleton rounded-sm aspect-square w-full" />;
+  }
+
   return (
     <div onClick={handleSelectResult} className="hover:cursor-pointer">
       {layout ? (
@@ -13,8 +18,8 @@ export const ResultsCard = ({ item, layout }) => {
           <div className="flex gap-4 absolute top-0 left-0 w-full font-bold z-10">
             <img src={item.images[1].url} alt="Album cover" className="h-24" />
             <div className="p-2 group-hover:pr-6  transition-all">
-              <p className="text-2xl">{item.name}</p>
-              <p className="text-sm">{item.artists[0].name}</p>
+              <p className="text-2xl">{item?.name}</p>
+              <p className="text-sm">{item?.artists[0].name}</p>
             </div>
           </div>
 
@@ -29,7 +34,7 @@ export const ResultsCard = ({ item, layout }) => {
         <div className="relative rounded-sm aspect-square w-full overflow-hidden group">
           <div className="absolute bottom-0 left-0 p-2 w-full bg-base-200 opacity-90 hidden font-bold group-hover:block z-10 transition">
             <p className="text-2xl">{item.name}</p>
-            <p className="text-sm">{item.artists[0].name}</p>
+            <p className="text-sm">{item.artists[0]?.name}</p>
           </div>
           <img
             src={item.images[1].url}
