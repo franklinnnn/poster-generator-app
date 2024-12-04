@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { PiFrameCorners } from "react-icons/pi";
+import { Bounce, ToastContainer } from "react-toastify";
 
 export const Header = () => {
   return (
@@ -22,6 +23,18 @@ export const Header = () => {
           className="toggle theme-controller"
         />
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="light"
+      />
     </div>
   );
 };

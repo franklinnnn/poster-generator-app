@@ -8,7 +8,12 @@ export const Footer = () => {
     <footer className="footer self-end bg-base-200 items-center p-6 mt-auto">
       <aside className="grid-flow-col items-center">
         <PiFrameCorners size={35} className="rotate-90" />
-        <p>© {new Date().getFullYear()}</p>
+        <p className="flex items-center gap-1">
+          ©{" "}
+          <span className="font-display uppercase font-bold text-xs">
+            Swatch Frame {new Date().getFullYear()}
+          </span>
+        </p>
       </aside>
       <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
         <Link href="/" className="link">

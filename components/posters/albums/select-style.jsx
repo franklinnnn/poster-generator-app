@@ -44,7 +44,9 @@ export const AlbumSelectStyle = ({ album }) => {
             key={style.id}
             onClick={() => handleStyleSelect(style.id)}
           >
-            {style.component}
+            <div className="relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] bg-slate-100 text-slate-900 overflow-y-clip shadow-md">
+              {style.component}
+            </div>
           </div>
         ))}
       </div>

@@ -123,6 +123,8 @@ const AlbumPosterPage = () => {
       <PageButtons
         album={album}
         setAlbum={setAlbum}
+        editAlbum={editAlbum}
+        setEditAlbum={setEditAlbum}
         showEdit={showEdit}
         setShowEdit={setShowEdit}
         posterRef={posterRef}

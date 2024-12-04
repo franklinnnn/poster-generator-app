@@ -117,132 +117,124 @@ export const EditAlbumPosterStyleC = ({ edit, setEdit }) => {
 
   return (
     <div>
-      {/* POSTER START*/}
+      <div className="absolute left-0 top-0 px-4 w-full bg-secondary/70 uppercase font-bold z-20">
+        editing poster
+      </div>
+      {/* Canvas container with 2:3 aspect ratio */}
       <div
-        className={`relative w-full max-w-[350px] min-w-[350px] md:min-w-[calc(350px*1.6)] md:max-w-[calc(350px*1.6)] aspect-[2/3] border border-base-300 overflow-y-clip 
-      
-        `}
+        className="absolute inset-0 flex flex-col items-evenly justify-evenly p-[7%]"
+        style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
       >
-        <div className="absolute left-0 top-0 px-4 w-full bg-secondary/70 uppercase font-bold z-20">
-          editing poster
-        </div>
-        {/* Canvas container with 2:3 aspect ratio */}
-        <div
-          className="absolute inset-0 flex flex-col items-evenly justify-evenly p-[7%]"
-          style={{ backgroundColor: `${bgColor}`, color: `${textColor}` }}
-        >
-          {/* ARTIST, TITLE, ART */}
-          <div>
-            <div className="flex justify-between items-start pb-[1%]">
-              <input
-                type="text"
-                name="artist"
-                value={edit.artists[0].name}
-                onChange={(e) => handleArtistChange(e.target.value)}
-                className="artist-text w-1/2 bg-slate-200/40 mr-[0.2em]"
-                style={{ "--artist-text-size": `${artistTextSize}em` }}
-              />
-              <input
-                type="text"
-                name="title"
-                value={edit.name}
-                onChange={(e) => handleTitleChange(e.target.value)}
-                // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase w-1/2 leading-none  bg-slate-200/40"
-                className="album-text w-1/2 leading-none bg-slate-200/40"
-                style={{ "--album-text-size": `${albumTextSize}em` }}
-              />
-            </div>
-            <div className="flex-1 flex justify-center items-center pb-[2%]">
-              <div className="w-full h-0 pb-[100%] relative">
-                <img
-                  ref={imgRef}
-                  src={edit ? edit.images[0].url : "/vercel.svg"}
-                  alt="Album cover"
-                  crossOrigin="anonymous"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* TRACKLIST */}
-          <div className="flex-1">
-            <div className="flex flex-row justify-between h-full">
-              <div className="flex-1 flex space-x-2">
-                {/* Map through the columns and render each one */}
-                {columns.map((column, colIndex) => (
-                  <div
-                    key={colIndex}
-                    // className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
-                    className="tracks-text flex-1 flex-col gap-[0.2em]"
-                    style={{
-                      "--tracks-text-size": `${tracksTextSize}em`,
-                    }}
-                  >
-                    {column.map((track, trackIndex) => (
-                      <div className="grid grid-cols-6 gap-2" key={trackIndex}>
-                        <div className="col-span-1 text-right">
-                          {/* Calculate the correct track number */}
-                          {colIndex * column.length + trackIndex + 1}.
-                        </div>
-                        <input
-                          type="text"
-                          value={track.name}
-                          onChange={(e) =>
-                            handleTrackChange(e.target.value, trackIndex)
-                          }
-                          className="col-span-4 uppercase bg-slate-200/40"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* DETAILS */}
-          <div className="flex w-full items-end justify-between gap-2 border-t-2 border-slate-900 pt-[2%]">
-            <div className="flex flex-col">
-              <div className="flex flex-col items-start justify-start text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold h-full pb-[2%]">
-                <p className="flex gap-[0.4em] text-[0.6em] md:text-[calc(0.6em*1.6)] capitalize">
-                  <span>
-                    {new Date(edit.release_date).toLocaleDateString(
-                      "en-US",
-                      dateOptions
-                    )}
-                  </span>
-                  •
-                  <span className="lowercase">
-                    {formatTime(edit.album_length)}
-                  </span>
-                </p>
-                <p className="text-[0.6em] md:text-[calc(0.6em*1.6)]">
-                  Released by <span>{edit.label}</span>
-                </p>
-              </div>
-              <div className="flex gap-[0.2em]">
-                {palette?.map((color) => (
-                  <div
-                    className="w-[1em] md:w-[calc(1em*1.6)] h-[1em] md:h-[calc(1em*1.6)] rounded-full"
-                    key={color}
-                    style={{
-                      backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-            <img
-              src={edit.qr_code_url ? edit.qr_code_url : null}
-              alt="Album QR code"
-              title="Album QR code"
-              className="w-[2.5em] md:w-[calc(2.5em*1.6)]"
+        {/* ARTIST, TITLE, ART */}
+        <div>
+          <div className="flex justify-between items-start pb-[1%]">
+            <input
+              type="text"
+              name="artist"
+              value={edit.artists[0].name}
+              onChange={(e) => handleArtistChange(e.target.value)}
+              className="artist-text w-1/2 bg-slate-200/40 mr-[0.2em]"
+              style={{ "--artist-text-size": `${artistTextSize}em` }}
+            />
+            <input
+              type="text"
+              name="title"
+              value={edit.name}
+              onChange={(e) => handleTitleChange(e.target.value)}
+              // className="text-[1em] md:text-[calc(1em*1.6)] font-black uppercase w-1/2 leading-none  bg-slate-200/40"
+              className="album-text w-1/2 leading-none bg-slate-200/40"
+              style={{ "--album-text-size": `${albumTextSize}em` }}
             />
           </div>
+          <div className="flex-1 flex justify-center items-center pb-[2%]">
+            <div className="w-full h-0 pb-[100%] relative">
+              <img
+                ref={imgRef}
+                src={edit ? edit.images[0].url : "/vercel.svg"}
+                alt="Album cover"
+                crossOrigin="anonymous"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* TRACKLIST */}
+        <div className="flex-1">
+          <div className="flex flex-row justify-between h-full">
+            <div className="flex-1 flex space-x-2">
+              {/* Map through the columns and render each one */}
+              {columns.map((column, colIndex) => (
+                <div
+                  key={colIndex}
+                  // className="flex-1 flex flex-col gap-[0.2em] uppercase font-bold text-[0.5em] md:text-[calc(0.5em*1.6)]"
+                  className="tracks-text flex-1 flex-col gap-[0.2em]"
+                  style={{
+                    "--tracks-text-size": `${tracksTextSize}em`,
+                  }}
+                >
+                  {column.map((track, trackIndex) => (
+                    <div className="grid grid-cols-6 gap-2" key={trackIndex}>
+                      <div className="col-span-1 text-right">
+                        {/* Calculate the correct track number */}
+                        {colIndex * column.length + trackIndex + 1}.
+                      </div>
+                      <input
+                        type="text"
+                        value={track.name}
+                        onChange={(e) =>
+                          handleTrackChange(e.target.value, trackIndex)
+                        }
+                        className="col-span-4 uppercase bg-slate-200/40"
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* DETAILS */}
+        <div className="flex w-full items-end justify-between gap-2 border-t-2 border-slate-900 pt-[2%]">
+          <div className="flex flex-col">
+            <div className="flex flex-col items-start justify-start text-[0.5em] md:text-[calc(0.5em*1.6)] font-bold h-full pb-[2%]">
+              <p className="flex gap-[0.4em] text-[0.6em] md:text-[calc(0.6em*1.6)] capitalize">
+                <span>
+                  {new Date(edit.release_date).toLocaleDateString(
+                    "en-US",
+                    dateOptions
+                  )}
+                </span>
+                •
+                <span className="lowercase">
+                  {formatTime(edit.album_length)}
+                </span>
+              </p>
+              <p className="text-[0.6em] md:text-[calc(0.6em*1.6)]">
+                Released by <span>{edit.label}</span>
+              </p>
+            </div>
+            <div className="flex gap-[0.2em]">
+              {palette?.map((color) => (
+                <div
+                  className="w-[1em] md:w-[calc(1em*1.6)] h-[1em] md:h-[calc(1em*1.6)] rounded-full"
+                  key={color}
+                  style={{
+                    backgroundColor: `rgb(${color[0]},${color[1]},${color[2]})`,
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+          <img
+            src={edit.qr_code_url ? edit.qr_code_url : null}
+            alt="Album QR code"
+            title="Album QR code"
+            className="w-[2.5em] md:w-[calc(2.5em*1.6)]"
+          />
         </div>
       </div>
-      {/* POSTER END*/}
     </div>
   );
 };

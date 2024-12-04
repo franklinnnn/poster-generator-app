@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CiSearch } from "react-icons/ci";
+import { Bounce } from "react-toastify";
 
 export const Search = () => {
   const router = useRouter();
@@ -12,7 +13,21 @@ export const Search = () => {
   const handleSearch = (e) => {
     try {
       e.preventDefault();
-      if (searchQuery.trim() === "") return;
+      if (!searchQuery || searchQuery === "") {
+        console.log("null");
+        toast.error("🦄 Wow so easy!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      }
+      // if (searchQuery.trim() === "") return;
       console.log("searching album", searchQuery);
 
       const queryParams = new URLSearchParams({
@@ -97,7 +112,7 @@ export const Search = () => {
         <button
           type="submit"
           className="btn btn-primary join-item"
-          disabled={loading}
+          disabled={loading || !searchQuery}
         >
           <CiSearch size={20} />
         </button>
